@@ -1,0 +1,51 @@
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #003366;
+}
+
+.logo {
+  font-size: 4rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #003366, #FFD700, #D32F2F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.logo-crown {
+  font-size: 2.5rem;
+  color: #FFD700;
+  margin-left: 10px;
+}
+
+.logo-description {
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.zapocni-btn {
+  background-color: #FFD700;
+  color: #003366;
+  font-size: 1.25rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+}
+
+.zapocni-btn:hover {
+  background-color: #D32F2F;
+  transform: scale(1.05);
+}
+
+.zapocni-btn:focus {
+  outline: none;
+}
