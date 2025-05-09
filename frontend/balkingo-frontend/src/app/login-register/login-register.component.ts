@@ -1,28 +1,30 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // <-- Required for ngModel
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule], // ✅ Important: include FormsModule
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })
 export class LoginRegisterComponent {
   email: string = '';
   password: string = '';
-  registerEmail: string = '';
-  registerPassword: string = '';
-  confirmPassword: string = '';
 
-  onLogin() {
-    console.log('Login:', this.email, this.password);
+  isValidEmail(): boolean {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(this.email);
   }
 
-  onRegister() {
-    if (this.registerPassword === this.confirmPassword) {
-      console.log('Register:', this.registerEmail, this.registerPassword);
-    } else {
-      alert('Passwords do not match!');
+  onLogin(): void {
+    if (!this.isValidEmail()) {
+      alert('Unesite važeći email.');
+      return;
     }
+
+    console.log('Login:', this.email, this.password);
+    // Add actual login logic here
   }
 }

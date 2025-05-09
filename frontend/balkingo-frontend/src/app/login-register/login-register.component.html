@@ -1,16 +1,37 @@
-<div class="login-register-container text-center">
-  <h2>Login</h2>
-  <form>
-    <input type="email" class="form-control mb-3" placeholder="Email" />
-    <input type="password" class="form-control mb-3" placeholder="Password" />
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
-  <hr />
-  <h2>Register</h2>
-  <form>
-    <input type="email" class="form-control mb-3" placeholder="Email" />
-    <input type="password" class="form-control mb-3" placeholder="Password" />
-    <input type="password" class="form-control mb-3" placeholder="Confirm Password" />
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
+<div class="login-container">
+  <div class="logo-container">
+    <span class="logo">Balkingo</span>
+    <i class="fas fa-crown logo-crown"></i>
+  </div>
+  <div class="login-form-container">
+    <h2 class="login-title">Prijavite se</h2>
+    <form class="login-form" (ngSubmit)="onLogin()">
+      <!-- Email input -->
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Unesite svoj email"
+        class="form-input"
+        required
+      />
+
+      <!-- Error message for invalid email -->
+      <div *ngIf="email && !isValidEmail()" class="error-message">
+        Molimo vas da unesete važeći email.
+      </div>
+
+      <!-- Password input -->
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Unesite svoju lozinku"
+        class="form-input"
+        required
+      />
+
+      <button type="submit" class="zapocni-btn" [disabled]="!isValidEmail()">Prijavi se</button>
+    </form>
+  </div>
 </div>
