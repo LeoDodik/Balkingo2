@@ -85,3 +85,23 @@ Balkingo is a language learning platform aimed at helping Croatian, Bosnian, and
     npm start
     ```
     The frontend will be available at `http://localhost:4200`.
+
+
+## ✅ How to Add Bootstrap 5 to Your Angular Project
+
+### 1. Install Bootstrap via npm  
+In your `balkingo/frontend` directory, run:
+
+```bash
+npm install bootstrap
+
+
+### Open angular.json and locate the build > options > styles and scripts arrays. Then add:
+
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.css"
+],
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+]
