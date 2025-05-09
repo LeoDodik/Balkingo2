@@ -7,7 +7,7 @@ Balkingo is a language learning platform aimed at helping Croatian, Bosnian, and
 - **Backend**:
   - **Spring Boot** (Java)
   - **Spring Data JPA** (for database interaction)
-  - **MySQL** (future integration)
+  - **PostgreSQL** (future integration)
   - **Gradle** (for project build and dependency management)
 
 - **Frontend**:
