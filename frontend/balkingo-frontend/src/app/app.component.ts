@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http'; // <-- Add HttpClient here
 import { RouterOutlet } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HttpClientModule, RouterOutlet, LandingPageComponent], // Correct imports
+  imports: [HttpClientModule, RouterOutlet], // Correct imports
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

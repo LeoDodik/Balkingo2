@@ -4,34 +4,28 @@
     <i class="fas fa-crown logo-crown"></i>
   </div>
   <div class="login-form-container">
-    <h2 class="login-title">Prijavite se</h2>
-    <form class="login-form" (ngSubmit)="onLogin()">
-      <!-- Email input -->
+    <h2 class="login-title">Login</h2>
+    <form class="login-form" (ngSubmit)="onSubmit()">
       <input
         type="email"
         [(ngModel)]="email"
         name="email"
-        placeholder="Unesite svoj email"
+        placeholder="Enter your email"
         class="form-input"
         required
       />
-
-      <!-- Error message for invalid email -->
       <div *ngIf="email && !isValidEmail()" class="error-message">
         Molimo vas da unesete važeći email.
       </div>
-
-      <!-- Password input -->
       <input
         type="password"
         [(ngModel)]="password"
         name="password"
-        placeholder="Unesite svoju lozinku"
+        placeholder="Enter your password"
         class="form-input"
         required
       />
-
-      <button type="submit" class="zapocni-btn" [disabled]="!isValidEmail()">Prijavi se</button>
+      <button type="submit" class="zapocni-btn" [disabled]="!isValidEmail()">Login</button>
     </form>
   </div>
 </div>

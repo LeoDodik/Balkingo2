@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- Required for ngModel
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ Important: include FormsModule
+  imports: [CommonModule, FormsModule],
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })
@@ -13,18 +14,27 @@ export class LoginRegisterComponent {
   email: string = '';
   password: string = '';
 
+  constructor(private http: HttpClient) {}
+
   isValidEmail(): boolean {
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return pattern.test(this.email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(this.email);
   }
 
-  onLogin(): void {
-    if (!this.isValidEmail()) {
-      alert('Unesite važeći email.');
-      return;
-    }
+  onSubmit() {
+    const payload = { email: this.email, password: this.password };
+    console.log('Sending login payload:', payload);
 
-    console.log('Login:', this.email, this.password);
-    // Add actual login logic here
+    this.http.post('http://localhost:8080/api/auth/login', payload, { responseType: 'text' })
+      .subscribe({
+        next: (response) => {
+          alert(response);
+          console.log('Response:', response);
+        },
+        error: (error) => {
+          alert('Došlo je do pogreške.');
+          console.error('Request failed:', error);
+        }
+      });
   }
 }
