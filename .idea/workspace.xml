@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6af58c6-d242-4672-b2a6-4a62e9ca320f" name="Changes" comment="">
+    <list default="true" id="f6af58c6-d242-4672-b2a6-4a62e9ca320f" name="Changes" comment="[#6] style: Landing Page Forms and Button new UI">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/login-register/login-register.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/login-register/login-register.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/login-register/login-register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/login-register/login-register.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,5 +80,9 @@
       <updated>1745825451083</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[#6] style: Landing Page Forms and Button new UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="[#6] style: Landing Page Forms and Button new UI" />
   </component>
 </project>

@@ -15,12 +15,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
-        boolean exists = userService.userExists(user.getEmail());
-        if (exists) {
-            return "User already exists, logging in...";
-        } else {
+        if (!userService.userExists(user.getEmail())) {
             userService.register(user.getEmail(), user.getPassword());
             return "User registered successfully";
+        } else if (userService.authenticate(user.getEmail(), user.getPassword())) {
+            return "Login successful";
+        } else {
+            return "Invalid email or password";
         }
     }
 }
