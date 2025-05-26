@@ -15,13 +15,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
-        if (!userService.userExists(user.getEmail())) {
-            userService.register(user.getEmail(), user.getPassword());
-            return "User registered successfully";
-        } else if (userService.authenticate(user.getEmail(), user.getPassword())) {
-            return "Login successful";
+        boolean exists = userService.userExists(user.getEmail());
+        if (exists) {
+            return "EXISTS";
         } else {
-            return "Invalid email or password";
+            userService.register(user.getEmail(), user.getPassword());
+            return "NEW";
         }
+    }
+
+    @PostMapping("/profile-setup")
+    public String saveProfile(@RequestBody User user) {
+        userService.updateProfile(user.getEmail(), user.getNickname(), user.getCountry(), user.getLevel());
+        return "Profile saved";
     }
 }

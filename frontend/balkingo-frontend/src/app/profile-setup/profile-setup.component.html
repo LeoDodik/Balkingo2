@@ -1,0 +1,30 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <span class="logo">Balkingo</span><i class="fas fa-crown logo-crown"></i>
+    <h2>Postavljanje profila</h2>
+  </div>
+
+  <form (ngSubmit)="onSave()" #profileForm="ngForm">
+    <label for="nickname">Nadimak</label>
+    <input type="text" id="nickname" name="nickname" [(ngModel)]="nickname" placeholder="Unesite nadimak" required />
+
+    <label for="country">Država</label>
+    <select id="country" name="country" [(ngModel)]="country" required>
+      <option value="" disabled selected>Odaberite državu</option>
+      <option value="hrvatska">Hrvatska</option>
+      <option value="srbija">Srbija</option>
+      <option value="bosna">Bosna</option>
+    </select>
+
+    <label for="experience">Razina znanja njemačkog</label>
+    <select id="experience" name="experience" [(ngModel)]="experience" required>
+      <option value="" disabled selected>Odaberite razinu</option>
+      <option value="pocetnik">Početnik</option>
+      <option value="srednji">Srednji</option>
+      <option value="napredni">Napredni</option>
+      <option value="izvorni">Izvorni govornik</option>
+    </select>
+
+    <button type="submit" class="save-btn">Spremi</button>
+  </form>
+</div>

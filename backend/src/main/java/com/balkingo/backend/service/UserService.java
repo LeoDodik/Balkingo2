@@ -1,3 +1,4 @@
+// File: src/main/java/com/balkingo/backend/service/UserService.java
 package com.balkingo.backend.service;
 
 import com.balkingo.backend.model.User;
@@ -17,23 +18,34 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public boolean userExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public void register(String email, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password)); // ENCODED password
-        userRepository.save(user);
+    public boolean isProfileComplete(User user) {
+        return user.getNickname() != null && user.getCountry() != null && user.getLevel() != null;
     }
 
-    public boolean authenticate(String email, String rawPassword) {
+    public User register(String email, String rawPassword) {
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        return userRepository.save(user);
+    }
+
+    public User updateProfile(String email, String nickname, String country, String level) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
-            String encodedPassword = optionalUser.get().getPassword();
-            return passwordEncoder.matches(rawPassword, encodedPassword); // Password check
+            User user = optionalUser.get();
+            user.setNickname(nickname);
+            user.setCountry(country);
+            user.setLevel(level);
+            return userRepository.save(user);
         }
-        return false;
+        return null;
     }
 }

@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #003366;
+  color: #fff;
+}
+
+.profile-container {
+  max-width: 400px;
+  margin: 60px auto;
+  background: #00224d;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 3.5rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #003366, #FFD700, #D32F2F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-crown {
+  font-size: 2rem;
+  color: #FFD700;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+h2 {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+label {
+  display: block;
+  margin: 15px 0 6px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background-color: #f0f0f0;
+  color: #000;
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+  box-shadow: 0 0 8px 2px #FFD700;
+}
+
+.save-btn {
+  margin-top: 30px;
+  width: 100%;
+  background-color: #FFD700;
+  color: #003366;
+  font-size: 1.25rem;
+  padding: 14px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: #D32F2F;
+  transform: scale(1.05);
+}
+
+.save-btn:focus {
+  outline: none;
+}
+
+@media (max-width: 450px) {
+  .profile-container {
+    margin: 30px 20px;
+    padding: 25px 20px;
+  }
+
+  .logo {
+    font-size: 2.8rem;
+  }
+}
