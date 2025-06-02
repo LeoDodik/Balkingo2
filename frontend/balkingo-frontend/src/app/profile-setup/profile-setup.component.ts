@@ -24,16 +24,25 @@ export class ProfileSetupComponent {
       return;
     }
 
+    const email = localStorage.getItem('userEmail');
+    if (!email) {
+      alert('Greška: Email nije pronađen.');
+      return;
+    }
+
     const profileData = {
+      email: email,
       nickname: this.nickname.trim(),
       country: this.country,
-      experience: this.experience,
+      level: this.experience
     };
 
-    console.log('Profil:', profileData);
-    alert('Profil uspješno spremljen!');
-
-    // You can also save to backend here:
-    // this.http.post('/api/profile', profileData).subscribe(() => this.router.navigate(['/']));
+    this.http.post('http://localhost:8080/api/auth/profile-setup', profileData).subscribe({
+      next: () => {
+        alert('Profil uspješno spremljen!');
+        this.router.navigateByUrl('/'); // or redirect wherever you want
+      },
+      error: () => alert('Greška prilikom spremanja profila.')
+    });
   }
 }
