@@ -1,4 +1,3 @@
-// File: src/main/java/com/balkingo/backend/service/UserService.java
 package com.balkingo.backend.service;
 
 import com.balkingo.backend.model.User;
@@ -37,15 +36,26 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public boolean nicknameExists(String nickname) {
+        return userRepository.findByNickname(nickname).isPresent();
+    }
+
     public User updateProfile(String email, String nickname, String country, String level) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+
+            // ✅ Check if nickname is taken by another user
+            Optional<User> existing = userRepository.findByNickname(nickname);
+            if (existing.isPresent() && !existing.get().getEmail().equals(email)) {
+                throw new IllegalArgumentException("Nickname already taken");
+            }
+
             user.setNickname(nickname);
             user.setCountry(country);
             user.setLevel(level);
             return userRepository.save(user);
         }
-        return null;
+        throw new IllegalArgumentException("User not found");
     }
 }

@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6af58c6-d242-4672-b2a6-4a62e9ca320f" name="Changes" comment="[#6] style: Landing Page Forms and Button new UI">
+    <list default="true" id="f6af58c6-d242-4672-b2a6-4a62e9ca320f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/login-register/login-register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/login-register/login-register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/balkingo/backend/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/profile-setup/profile-setup.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/profile-setup/profile-setup.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,8 +49,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LeoDodik/Balkingo.git&quot;,
-    &quot;accountId&quot;: &quot;82f4f5b1-886f-4c8d-ad7d-867b6e3f41e7&quot;
+    &quot;url&quot;: &quot;git@github.com:LeoDodik/Balkingo.git&quot;,
+    &quot;accountId&quot;: &quot;62002714-4354-4cbb-a143-512e03c387f0&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -65,13 +65,29 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dodik/Desktop/Projects/Balkingo&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/leo/IdeaProjects/ionas/webapps/egov/vg-ruwer-homepage&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;/home/dodik/Desktop/Projects/Balkingo/src/main/java/org/example/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/leo/Desktop/Balkingo/frontend/balkingo-frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-60c2bc820a0d-intellij.indexing.shared.core-IU-252.18003.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-d8cef83ef014-JavaScript-IU-252.18003.27" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="f6af58c6-d242-4672-b2a6-4a62e9ca320f" name="Changes" comment="" />
@@ -79,8 +95,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1745825451083</updated>
+      <workItem from="1749020328992" duration="6691000" />
+      <workItem from="1749038301644" duration="5608000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[#6] style: Landing Page Forms and Button new UI" />

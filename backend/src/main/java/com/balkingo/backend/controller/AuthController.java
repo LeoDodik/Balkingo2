@@ -34,8 +34,15 @@ public class AuthController {
     }
 
     @PostMapping("/profile-setup")
-    public String saveProfile(@RequestBody User user) {
-        userService.updateProfile(user.getEmail(), user.getNickname(), user.getCountry(), user.getLevel());
-        return "Profile saved";
+    public Map<String, String> saveProfile(@RequestBody User user) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            userService.updateProfile(user.getEmail(), user.getNickname(), user.getCountry(), user.getLevel());
+            response.put("status", "OK");
+        } catch (IllegalArgumentException e) {
+            response.put("status", "ERROR");
+            response.put("message", e.getMessage());
+        }
+        return response;
     }
 }

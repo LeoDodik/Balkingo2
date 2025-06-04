@@ -15,8 +15,10 @@ export class ProfileSetupComponent {
   nickname = '';
   country = '';
   experience = '';
+  nicknameTaken = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   onSave() {
     if (!this.nickname || !this.country || !this.experience) {
@@ -37,12 +39,19 @@ export class ProfileSetupComponent {
       level: this.experience
     };
 
-    this.http.post('http://localhost:8080/api/auth/profile-setup', profileData).subscribe({
-      next: () => {
-        alert('Profil uspješno spremljen!');
-        this.router.navigateByUrl('/'); // or redirect wherever you want
+    this.http.post<any>('http://localhost:8080/api/auth/profile-setup', profileData).subscribe({
+      next: (response) => {
+        if (response.status === 'OK') {
+          alert('Profil uspješno spremljen!');
+        } else if (response.status === 'ERROR' && response.message === 'Nickname already taken') {
+          alert('Greška: Nadimak je već zauzet.');
+        } else {
+          alert('Neočekivana greška.');
+        }
       },
-      error: () => alert('Greška prilikom spremanja profila.')
+      error: () => {
+        alert('Greška prilikom spremanja profila.');
+      }
     });
   }
 }
