@@ -17,8 +17,7 @@ export class ProfileSetupComponent {
   experience = '';
   nicknameTaken = false;
 
-  constructor(private http: HttpClient, private router: Router) {
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSave() {
     if (!this.nickname || !this.country || !this.experience) {
@@ -43,8 +42,10 @@ export class ProfileSetupComponent {
       next: (response) => {
         if (response.status === 'OK') {
           alert('Profil uspješno spremljen!');
+          this.router.navigate(['/dashboard']); // ✅ Redirect to dashboard
         } else if (response.status === 'ERROR' && response.message === 'Nickname already taken') {
           alert('Greška: Nadimak je već zauzet.');
+          this.nicknameTaken = true;
         } else {
           alert('Neočekivana greška.');
         }

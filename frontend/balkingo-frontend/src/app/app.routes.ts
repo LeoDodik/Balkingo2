@@ -15,5 +15,10 @@ export const routes: Routes = [
     path: 'profile-setup',
     loadComponent: () =>
       import('./profile-setup/profile-setup.component').then(m => m.ProfileSetupComponent),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
   }
 ];
