@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import {UpoznavanjeComponent} from './upoznavanje/upoznavanje.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,15 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () =>
       import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
+  },
+  {
+    path: 'lektion',
+    loadComponent: () =>
+      import('./lektion/lektion.component').then(m => m.LektionComponent),
+  },
+  {
+    path: 'lektion/upoznavanje',
+    loadComponent: () =>
+      import('./upoznavanje/upoznavanje.component').then(m => m.UpoznavanjeComponent),
   }
 ];

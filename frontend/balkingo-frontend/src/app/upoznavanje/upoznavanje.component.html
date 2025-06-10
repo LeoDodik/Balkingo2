@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="logo">
+    Balkingo <i class="fas fa-crown"></i>
+  </div>
+
+  <!-- INTRO -->
+  <div *ngIf="showIntro" class="intro active">
+    <p>Dobrodošli u lekciju “Upoznavanje”!<br><br>
+      U ovoj lekciji naučit ćete osnovne pozdrave na njemačkom jeziku. Spremni?</p>
+    <button class="start-btn" (click)="startLesson()">Započni</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div *ngIf="!showIntro" class="quiz active">
+    <div class="question">Kako se kaže "Dobar dan" na njemačkom jeziku?</div>
+    <div class="answer" (click)="checkAnswer('Guten Tag')">Guten Tag</div>
+    <div class="answer" (click)="checkAnswer('Guten Morgen')">Guten Morgen</div>
+    <div class="answer" (click)="checkAnswer('Tschüss')">Tschüss</div>
+    <div class="answer" (click)="checkAnswer('Ich heiße...')">Ich heiße...</div>
+
+    <div *ngIf="answered" class="result">
+      <p>{{ resultMessage }}</p>
+      <button class="start-btn" (click)="resetQuiz()">Pokušaj ponovno</button>
+    </div>
+  </div>
+</div>

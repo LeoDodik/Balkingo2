@@ -3,16 +3,18 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-lektion',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  templateUrl: './lektion.component.html',
+  styleUrls: ['./lektion.component.css']
 })
-export class DashboardComponent {
+export class LektionComponent {
+  constructor(private router: Router) {}
   showMenu = false;
 
-  constructor(private router: Router) {
+  goToUpoznavanje() {
+    this.router.navigate(['/lektion/upoznavanje']);
   }
 
   toggleMenu() {
@@ -29,11 +31,8 @@ export class DashboardComponent {
   }
 
   goToLection() {
-    this.router.navigate(['/lektion']);
+    this.router.navigate(['/lektion/']);
   }
 
 
-  goToUpoznavanje() {
-    this.router.navigate(['/lektion/upoznavanje']);
-  }
 }
