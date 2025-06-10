@@ -1,0 +1,26 @@
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="profile-icon-wrapper">
+      <i class="fas fa-user-circle profile-icon" (click)="toggleMenu()"></i>
+      <div class="menu" *ngIf="showMenu">
+        <button (click)="editProfile()">Edit Profile</button>
+        <button (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="logo">
+      <span class="logo-text">Balkingo</span>
+      <i class="fas fa-crown logo-crown"></i>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#"><i class="fas fa-book"></i> Lekcije</a>
+      <a href="#"><i class="fas fa-chart-line"></i> Napredak</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h1>Dobrodošao na Balkingo Dashboard!</h1>
+    <p>Ovdje ćeš vidjeti svoj napredak, lekcije i više.</p>
+  </main>
+</div>
