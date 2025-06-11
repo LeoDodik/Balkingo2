@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43c1fe00-062e-4954-84a4-749d7ee84688" name="Changes" comment="[#11] feat: Added a Dashboard after logging in.Edit Profile/Logout features">
-      <change afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_25,_13_12_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_25__13_12__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,21 +20,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "LeoDodik"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LeoDodik&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/LeoDodik/Balkingo2.git",
-    "accountId": "62002714-4354-4cbb-a143-512e03c387f0"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LeoDodik/Balkingo2.git&quot;,
+    &quot;accountId&quot;: &quot;62002714-4354-4cbb-a143-512e03c387f0&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2yJHhRB5mMLFw941NHBHJTUaPO0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -56,7 +53,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/snap/intellij-idea-ultimate/620/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/home/leo/Desktop/Projects/Balkingo/frontend/balkingo-frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -93,7 +90,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1749545877146</updated>
-      <workItem from="1749545877655" duration="9473000" />
+      <workItem from="1749545877655" duration="11689000" />
+      <workItem from="1749625591323" duration="5943000" />
     </task>
     <servers />
   </component>
@@ -111,7 +109,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.ts</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

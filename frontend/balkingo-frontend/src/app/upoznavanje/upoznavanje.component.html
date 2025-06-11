@@ -1,26 +1,48 @@
+
 <div class="container">
-  <div class="logo">
-    Balkingo <i class="fas fa-crown"></i>
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli!</h2>
+    <p>Pripremite se za učenje osnovnih fraza za upoznavanje na njemačkom jeziku.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
   </div>
 
-  <!-- INTRO -->
-  <div *ngIf="showIntro" class="intro active">
-    <p>Dobrodošli u lekciju “Upoznavanje”!<br><br>
-      U ovoj lekciji naučit ćete osnovne pozdrave na njemačkom jeziku. Spremni?</p>
-    <button class="start-btn" (click)="startLesson()">Započni</button>
-  </div>
+  <div *ngIf="!showWelcome">
+    <div class="logo">
+      Balkingo <i class="fas fa-crown"></i>
+    </div>
 
-  <!-- QUIZ -->
-  <div *ngIf="!showIntro" class="quiz active">
-    <div class="question">Kako se kaže "Dobar dan" na njemačkom jeziku?</div>
-    <div class="answer" (click)="checkAnswer('Guten Tag')">Guten Tag</div>
-    <div class="answer" (click)="checkAnswer('Guten Morgen')">Guten Morgen</div>
-    <div class="answer" (click)="checkAnswer('Tschüss')">Tschüss</div>
-    <div class="answer" (click)="checkAnswer('Ich heiße...')">Ich heiße...</div>
+    <div class="progress-container">
+      <div class="progress-bar" [style.width.%]="progress"></div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
 
-    <div *ngIf="answered" class="result">
-      <p>{{ resultMessage }}</p>
-      <button class="start-btn" (click)="resetQuiz()">Pokušaj ponovno</button>
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}: {{ currentLesson.title }}</h2>
+      <p>{{ currentLesson.description }}</p>
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+      <div class="answer" *ngFor="let ans of currentLesson.answers" (click)="checkAnswer(ans)">
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste sve lekcije.</h2>
+      <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
+      <button class="start-btn" (click)="restart()">Počni ispočetka</button>
     </div>
   </div>
 </div>
