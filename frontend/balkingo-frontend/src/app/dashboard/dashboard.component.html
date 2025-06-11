@@ -1,14 +1,26 @@
-<div class="dashboard">
-  <aside class="sidebar">
-    <div class="profile-icon-wrapper">
+<!-- Mobile Navbar (ONLY visible on small/medium screens) -->
+<nav class="mobile-navbar">
+  <div class="mobile-navbar-left">
+    <span class="logo-text">Balkingo</span>
+    <i class="fas fa-crown logo-crown"></i>
+  </div>
+  <div class="mobile-navbar-right">
+    <i class="fas fa-bars hamburger-icon" (click)="toggleMobileMenu()"></i>
+    <div class="profile-icon-wrapper-mobile">
       <i class="fas fa-user-circle profile-icon" (click)="toggleMenu()"></i>
       <div class="menu" *ngIf="showMenu">
         <button (click)="editProfile()">Edit Profile</button>
         <button (click)="logout()">Logout</button>
       </div>
     </div>
+  </div>
+</nav>
 
-    <div class="logo">
+<!-- Sidebar + Main content -->
+<div class="dashboard">
+  <aside class="sidebar" [class.hidden]="isMobileScreen() && !mobileMenuOpen">
+    <!-- Only visible on desktop -->
+    <div class="sidebar-logo">
       <span class="logo-text">Balkingo</span>
       <i class="fas fa-crown logo-crown"></i>
     </div>

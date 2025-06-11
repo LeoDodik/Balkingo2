@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43c1fe00-062e-4954-84a4-749d7ee84688" name="Changes" comment="[#11] feat: Added a Dashboard after logging in.Edit Profile/Logout features">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_25,_13_12_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_06_25__13_12__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/upoznavanje/upoznavanje.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/balkingo-frontend/src/app/dashboard/dashboard.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1749545877146</updated>
       <workItem from="1749545877655" duration="11689000" />
-      <workItem from="1749625591323" duration="5943000" />
+      <workItem from="1749625591323" duration="15738000" />
     </task>
     <servers />
   </component>

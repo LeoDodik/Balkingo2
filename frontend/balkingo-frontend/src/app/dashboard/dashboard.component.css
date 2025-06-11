@@ -1,46 +1,51 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-.dashboard {
-  display: flex;
-  height: 100vh;
+body {
+  margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: #001a33;
-  color: white;
 }
 
-.sidebar {
-  position: relative; /* needed for absolute positioning of profile icon */
-  width: 240px;
+/* MOBILE NAVBAR */
+.mobile-navbar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
   background-color: #00224d;
+  padding: 12px 20px;
+}
+
+.mobile-navbar-left .logo-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.mobile-navbar-right {
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  align-items: center;
+  gap: 16px;
 }
 
-.profile-icon-wrapper {
-  position: absolute;
-  bottom: 20px; /* match sidebar padding */
-  left: 20px;   /* match sidebar padding */
-  margin-bottom: 0; /* remove any margin-bottom */
-}
-
+.hamburger-icon,
 .profile-icon {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   cursor: pointer;
   color: #FFD700;
 }
 
+.profile-icon-wrapper-mobile {
+  position: relative;
+}
+
 .menu {
   position: absolute;
-  top: -110px; /* adjust if needed to avoid overlapping */
-  left: 0;
+  top: 30px;
+  right: 0;
   background: #003366;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10;
-  white-space: nowrap;
+  z-index: 999;
 }
 
 .menu button {
@@ -57,6 +62,28 @@
 
 .menu button:hover {
   background-color: #004080;
+}
+
+/* DASHBOARD */
+.dashboard {
+  display: flex;
+  height: 100vh;
+  background-color: #001a33;
+  color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background-color: #00224d;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.hidden {
+  display: none;
 }
 
 .logo {
@@ -79,7 +106,7 @@
 }
 
 .nav-links {
-  flex: 1; /* so nav links take up available vertical space */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -101,33 +128,55 @@
   background-color: #003366;
 }
 
+/* MAIN */
 .main-content {
   flex: 1;
   padding: 40px;
-  background-color: #001a33;
 }
 
-.toast-card {
-  margin-top: 40px;
-  background-color: #FFD700;
-  color: #00224d;
-  border-radius: 12px;
-  padding: 20px 40px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  display: inline-flex;
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .mobile-navbar {
+    display: flex;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: #00224d;
+    width: 100%;
+    z-index: 10;
+  }
+}
+
+/* Logo in sidebar - visible only on desktop */
+.sidebar-logo {
+  display: flex;
   align-items: center;
-  gap: 14px;
-  cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.toast-card i {
   font-size: 1.8rem;
-  color: #0044cc;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
-.toast-card:hover {
-  background-color: #FFA500;
-  transform: scale(1.05);
+.sidebar-logo .logo-text {
+  background: linear-gradient(90deg, #003366, #FFD700, #D32F2F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar-logo .logo-crown {
+  margin-left: 8px;
+  color: #FFD700;
+}
+
+/* Hide sidebar logo on mobile */
+@media (max-width: 768px) {
+  .sidebar-logo {
+    display: none;
+  }
 }

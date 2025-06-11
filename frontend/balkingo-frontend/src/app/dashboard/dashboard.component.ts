@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
   showMenu = false;
+  mobileMenuOpen = false;
 
   constructor(private router: Router) {
   }
@@ -32,8 +33,13 @@ export class DashboardComponent {
     this.router.navigate(['/lektion']);
   }
 
-
-  goToUpoznavanje() {
-    this.router.navigate(['/lektion/upoznavanje']);
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
+
+  isMobileScreen(): boolean {
+    return window.innerWidth <= 768;
+  }
+
 }
+
