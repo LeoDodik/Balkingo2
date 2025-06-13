@@ -1,4 +1,4 @@
-<!-- Mobile Navbar (ONLY visible on small/medium screens) -->
+<!-- Mobile Navbar -->
 <nav class="mobile-navbar">
   <div class="mobile-navbar-left">
     <span class="logo-text">Balkingo</span>
@@ -6,20 +6,13 @@
   </div>
   <div class="mobile-navbar-right">
     <i class="fas fa-bars hamburger-icon" (click)="toggleMobileMenu()"></i>
-    <div class="profile-icon-wrapper-mobile">
-      <i class="fas fa-user-circle profile-icon" (click)="toggleMenu()"></i>
-      <div class="menu" *ngIf="showMenu">
-        <button (click)="editProfile()">Edit Profile</button>
-        <button (click)="logout()">Logout</button>
-      </div>
-    </div>
   </div>
 </nav>
 
-<!-- Sidebar + Main content -->
+<!-- Sidebar Menu (also shown on mobile when open) -->
 <div class="dashboard">
   <aside class="sidebar" [class.hidden]="isMobileScreen() && !mobileMenuOpen">
-    <!-- Only visible on desktop -->
+    <!-- Logo only on desktop -->
     <div class="sidebar-logo">
       <span class="logo-text">Balkingo</span>
       <i class="fas fa-crown logo-crown"></i>
@@ -28,6 +21,8 @@
     <nav class="nav-links">
       <a (click)="goToLection()"><i class="fas fa-book"></i> Lekcije</a>
       <a><i class="fas fa-chart-line"></i> Napredak</a>
+      <a (click)="editProfile()"><i class="fas fa-user-edit"></i> Edit Profile</a>
+      <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </nav>
   </aside>
 

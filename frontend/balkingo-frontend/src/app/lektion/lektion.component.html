@@ -1,14 +1,19 @@
-<div class="dashboard">
-  <aside class="sidebar">
-    <div class="profile-icon-wrapper">
-      <i class="fas fa-user-circle profile-icon" (click)="toggleMenu()"></i>
-      <div class="menu" *ngIf="showMenu">
-        <button (click)="editProfile()">Edit Profile</button>
-        <button (click)="logout()">Logout</button>
-      </div>
-    </div>
+<!-- Mobile Navbar -->
+<nav class="mobile-navbar">
+  <div class="mobile-navbar-left">
+    <span class="logo-text">Balkingo</span>
+    <i class="fas fa-crown logo-crown"></i>
+  </div>
+  <div class="mobile-navbar-right">
+    <i class="fas fa-bars hamburger-icon" (click)="toggleMobileMenu()"></i>
+  </div>
+</nav>
 
-    <div class="logo">
+<!-- Sidebar Menu (also shown on mobile when open) -->
+<div class="dashboard">
+  <aside class="sidebar" [class.hidden]="isMobileScreen() && !mobileMenuOpen">
+    <!-- Logo only on desktop -->
+    <div class="sidebar-logo">
       <span class="logo-text">Balkingo</span>
       <i class="fas fa-crown logo-crown"></i>
     </div>
@@ -16,16 +21,19 @@
     <nav class="nav-links">
       <a (click)="goToLection()"><i class="fas fa-book"></i> Lekcije</a>
       <a><i class="fas fa-chart-line"></i> Napredak</a>
+      <a (click)="editProfile()"><i class="fas fa-user-edit"></i> Edit Profile</a>
+      <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </nav>
   </aside>
 
-  <main class="main-content">
-    <h1>Dobrodošao u tvoje lekcije</h1>
-    <p>Ovdje ćeš vidjeti svoje lekcije, više lekcija u buducnosti.</p>
+<!-- ✅ MAIN CONTENT -->
+<main class="main-content">
+  <h1>Dobrodošao u tvoje lekcije</h1>
+  <p>Ovdje ćeš vidjeti svoje lekcije, više lekcija u budućnosti.</p>
 
-    <div class="toast-card" (click)="goToUpoznavanje()">
-      <i class="fas fa-lightbulb"></i>
-      <span>UPOZNAVANJE</span>
-    </div>
-  </main>
+  <div class="toast-card" (click)="goToUpoznavanje()">
+    <i class="fas fa-lightbulb"></i>
+    <span>UPOZNAVANJE</span>
+  </div>
+</main>
 </div>

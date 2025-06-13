@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -10,15 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./lektion.component.css']
 })
 export class LektionComponent {
-  constructor(private router: Router) {}
-  showMenu = false;
+  screenWidth = window.innerWidth;
+  mobileMenuOpen = false;
 
+  constructor(private router: Router) {}
+
+  // Navigation methods
   goToUpoznavanje() {
     this.router.navigate(['/lektion/upoznavanje']);
   }
 
-  toggleMenu() {
-    this.showMenu = !this.showMenu;
+  goToLection() {
+    this.router.navigate(['/lektion']);
   }
 
   editProfile() {
@@ -30,9 +33,23 @@ export class LektionComponent {
     this.router.navigate(['/login']);
   }
 
-  goToLection() {
-    this.router.navigate(['/lektion/']);
+  // Toggle for mobile sidebar
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
+  isMobileScreen(): boolean {
+    return this.screenWidth <= 768;
+  }
 
+  // Update screen width on resize
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = event.target.innerWidth;
+
+    // Close mobile menu when resizing to desktop
+    if (!this.isMobileScreen()) {
+      this.mobileMenuOpen = false;
+    }
+  }
 }

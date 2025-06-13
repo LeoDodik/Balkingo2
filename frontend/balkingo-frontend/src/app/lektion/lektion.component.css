@@ -1,65 +1,67 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* MOBILE NAVBAR */
+.mobile-navbar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00224d;
+  padding: 12px 20px;
+}
+
+.mobile-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-navbar-left .logo-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #003366, #FFD700, #D32F2F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-crown {
+  font-size: 1.5rem;
+  color: #FFD700;
+}
+
+.hamburger-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #FFD700;
+}
+
+/* DASHBOARD */
 .dashboard {
   display: flex;
   height: 100vh;
-  font-family: 'Montserrat', sans-serif;
   background-color: #001a33;
   color: white;
 }
 
+/* SIDEBAR */
 .sidebar {
-  position: relative; /* needed for absolute positioning of profile icon */
   width: 240px;
-  background-color: #00224d;
+  background-color: #003366;
   display: flex;
   flex-direction: column;
   padding: 20px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.profile-icon-wrapper {
-  position: absolute;
-  bottom: 20px; /* match sidebar padding */
-  left: 20px;   /* match sidebar padding */
-  margin-bottom: 0; /* remove any margin-bottom */
+.sidebar.hidden {
+  display: none;
 }
 
-.profile-icon {
-  font-size: 2.2rem;
-  cursor: pointer;
-  color: #FFD700;
-}
-
-.menu {
-  position: absolute;
-  top: -110px; /* adjust if needed to avoid overlapping */
-  left: 0;
-  background: #003366;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 10;
-  white-space: nowrap;
-}
-
-.menu button {
-  display: block;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1rem;
-  padding: 8px;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-}
-
-.menu button:hover {
-  background-color: #004080;
-}
-
-.logo {
+.sidebar-logo {
   display: flex;
   align-items: center;
   font-size: 1.8rem;
@@ -67,19 +69,14 @@
   margin-bottom: 30px;
 }
 
-.logo-text {
+.sidebar-logo .logo-text {
   background: linear-gradient(90deg, #003366, #FFD700, #D32F2F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.logo-crown {
-  margin-left: 8px;
-  color: #FFD700;
-}
-
 .nav-links {
-  flex: 1; /* so nav links take up available vertical space */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -98,14 +95,39 @@
 }
 
 .nav-links a:hover {
-  background-color: #003366;
+  background-color: #004080;
 }
 
+/* MAIN */
 .main-content {
   flex: 1;
   padding: 40px;
-  background-color: #001a33;
 }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .mobile-navbar {
+    display: flex;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #003366;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .sidebar-logo {
+    display: none;
+  }
+}
+
 
 .toast-card {
   margin-top: 40px;
@@ -130,4 +152,9 @@
 .toast-card:hover {
   background-color: #FFA500;
   transform: scale(1.05);
+}
+
+/* Hide sidebar correctly when on mobile + menu closed */
+.sidebar.hidden {
+  display: none !important;
 }

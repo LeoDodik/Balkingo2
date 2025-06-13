@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -12,12 +12,16 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   showMenu = false;
   mobileMenuOpen = false;
+  screenWidth = window.innerWidth;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   editProfile() {
@@ -33,13 +37,15 @@ export class DashboardComponent {
     this.router.navigate(['/lektion']);
   }
 
-  toggleMobileMenu() {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
-  }
-
   isMobileScreen(): boolean {
-    return window.innerWidth <= 768;
+    return this.screenWidth <= 768;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = event.target.innerWidth;
+    if (!this.isMobileScreen()) {
+      this.mobileMenuOpen = false;
+    }
+  }
 }
-
