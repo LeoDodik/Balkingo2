@@ -1,0 +1,51 @@
+<!-- Mobile Navbar -->
+<nav class="mobile-navbar shadow-md">
+  <div class="mobile-navbar-left">
+    <span class="logo-text">Balkingo</span>
+    <i class="fas fa-crown logo-crown"></i>
+  </div>
+  <div class="mobile-navbar-right">
+    <i class="fas fa-bars hamburger-icon" (click)="toggleMobileMenu()"></i>
+  </div>
+</nav>
+
+<!-- Sidebar Menu -->
+<div class="dashboard">
+  <aside class="sidebar" [class.hidden]="isMobileScreen() && !mobileMenuOpen">
+    <div class="sidebar-logo">
+      <span class="logo-text">Balkingo</span>
+      <i class="fas fa-crown logo-crown"></i>
+    </div>
+    <nav class="nav-links">
+      <a (click)="goToLection()"><i class="fas fa-book"></i> Lekcije</a>
+      <a (click)="goToProgress()"><i class="fas fa-chart-line"></i> Napredak</a>
+      <a (click)="editProfile()"><i class="fas fa-user-edit"></i> Uredi Profil</a>
+      <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Odjava</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <section class="welcome-section">
+      <h1 class="headline">Dobrodošao na Balkingo Dashboard!</h1>
+      <p class="subtext">Pregledaj svoj napredak i nastavi učiti njemački jezik.</p>
+    </section>
+
+    <section class="progress-section">
+      <h2 class="progress-title">Tvoj napredak</h2>
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="lections-grid">
+        <div *ngFor="let lection of lections" class="lection-card-dark">
+          <div class="lection-title">{{ lection.toUpperCase() }}</div>
+          <span class="status-badge" [ngClass]="completedLections.includes(lection) ? 'badge-success' : 'badge-warning'">
+            {{ completedLections.includes(lection) ? 'Završeno ✅' : 'U tijeku ❌' }}
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

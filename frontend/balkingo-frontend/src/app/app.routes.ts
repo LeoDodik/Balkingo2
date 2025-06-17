@@ -31,5 +31,10 @@ export const routes: Routes = [
     path: 'lektion/upoznavanje',
     loadComponent: () =>
       import('./upoznavanje/upoznavanje.component').then(m => m.UpoznavanjeComponent),
+  },
+  {
+    path: 'progress',
+    loadComponent: () =>
+      import('./progress/progress.component').then(m => m.ProgressComponent)
   }
 ];

@@ -128,54 +128,48 @@ body {
   }
 }
 
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1rem;
+.lections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
 }
 
-.lection-card-modern {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+.lection-card {
+  background: linear-gradient(to top right, #f8fafc, #e2e8f0);
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  text-align: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
 }
 
-.lection-card-modern:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.lection-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.lection-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lection-header h3 {
-  font-size: 1.1rem;
+.lection-title {
+  font-size: 1.15rem;
   font-weight: 600;
-  color: #111827;
-  margin: 0;
+  margin-bottom: 0.75rem;
+  color: #1e293b;
 }
 
-.badge {
-  padding: 0.3rem 0.75rem;
+.status {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
-  white-space: nowrap;
 }
 
 .badge-done {
-  background-color: #16a34a;
-  color: #fff;
+  background-color: #10b981;
+  color: white;
 }
 
-.badge-progress {
-  background-color: #f59e0b;
-  color: #fff;
+.badge-todo {
+  background-color: #fbbf24;
+  color: #1f2937;
 }

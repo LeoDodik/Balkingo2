@@ -42,6 +42,9 @@ export class LektionComponent {
     return this.screenWidth <= 768;
   }
 
+  goToProgress() {
+    this.router.navigate(['/progress']);
+  }
   // Update screen width on resize
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

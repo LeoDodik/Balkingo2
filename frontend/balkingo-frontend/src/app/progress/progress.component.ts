@@ -1,20 +1,30 @@
-import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-progress',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  templateUrl: './progress.component.html',
+  styleUrls: ['./progress.component.css']
 })
-export class DashboardComponent {
+export class ProgressComponent implements OnInit {
   showMenu = false;
   mobileMenuOpen = false;
   screenWidth = window.innerWidth;
 
+  lections = ['upoznavanje', 'gramatika', 'konjugacija'];
+  completedLections: string[] = [];
+
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
+    const percent = Math.floor((this.completedLections.length / this.lections.length) * 100);
+    const bar = document.getElementById('progressBar');
+    if (bar) bar.style.width = percent + '%';
+  }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;

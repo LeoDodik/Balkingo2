@@ -1,5 +1,9 @@
+// ----------------------
+// UPDATED UpoznavanjeComponent
+// ----------------------
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upoznavanje',
@@ -16,12 +20,16 @@ export class UpoznavanjeComponent {
   showWelcome = true;
   answered = false;
   resultMessage = '';
+  completedLessonsList: string[] = [];
+
+  constructor(private router: Router) {}
 
   sections = [
     {
       name: 'Sekcija 1',
       lessons: [
         {
+          id: 'pozdrav-guten-tag',
           title: 'Pozdrav “Guten Tag”',
           description: '“Guten Tag” znači “Dobar dan” i koristi se u formalnim situacijama tokom dana.',
           question: 'Što znači “Guten Tag”?',
@@ -34,6 +42,7 @@ export class UpoznavanjeComponent {
       name: 'Sekcija 2',
       lessons: [
         {
+          id: 'pitanje-wie-heisst-du',
           title: 'Pitanje “Wie heißt du?”',
           description: '“Wie heißt du?” znači “Kako se zoveš?” i koristi se kada želiš upoznati nekoga.',
           question: 'Što znači “Wie heißt du?”',
@@ -41,6 +50,7 @@ export class UpoznavanjeComponent {
           answers: ['Koliko imaš godina?', 'Kako se zoveš?', 'Gdje živiš?', 'Kako si?']
         },
         {
+          id: 'pitanje-woher-kommst-du',
           title: 'Pitanje “Woher kommst du?”',
           description: '“Woher kommst du?” znači “Odakle dolaziš?” i koristi se kada želiš znati nečije porijeklo.',
           question: 'Što znači “Woher kommst du?”',
@@ -48,6 +58,7 @@ export class UpoznavanjeComponent {
           answers: ['Odakle dolaziš?', 'Koliko imaš godina?', 'Kako se zoveš?', 'Gdje živiš?']
         },
         {
+          id: 'pitanje-wie-alt-bist-du',
           title: 'Pitanje “Wie alt bist du?”',
           description: '“Wie alt bist du?” znači “Koliko imaš godina?”.',
           question: 'Što znači “Wie alt bist du?”',
@@ -55,6 +66,7 @@ export class UpoznavanjeComponent {
           answers: ['Koliko imaš godina?', 'Gdje si?', 'Kako si?', 'Gdje živiš?']
         },
         {
+          id: 'pozdrav-guten-abend',
           title: 'Pozdrav “Guten Abend”',
           description: '“Guten Abend” znači “Dobro veče” i koristi se u večernjim satima.',
           question: 'Kada se koristi “Guten Abend”?',
@@ -74,9 +86,7 @@ export class UpoznavanjeComponent {
   }
 
   get completedLessons(): number {
-    return this.sections
-      .slice(0, this.currentSectionIndex)
-      .reduce((total, section) => total + section.lessons.length, 0) + this.currentLessonIndex;
+    return this.completedLessonsList.length;
   }
 
   get progress(): number {
@@ -100,14 +110,17 @@ export class UpoznavanjeComponent {
   checkAnswer(selected: string) {
     this.answered = true;
     const correct = this.currentLesson.correct;
-    if (selected === correct) {
-      this.resultMessage = '✅ Bravo! Točan odgovor.';
-    } else {
-      this.resultMessage = `❌ Netočno. Tačan odgovor je: ${correct}`;
-    }
+    this.resultMessage = selected === correct
+      ? '✅ Bravo! Točan odgovor.'
+      : `❌ Netočno. Tačan odgovor je: ${correct}`;
   }
 
   nextLesson() {
+    const lessonId = this.currentLesson.id;
+    if (!this.completedLessonsList.includes(lessonId)) {
+      this.completedLessonsList.push(lessonId);
+    }
+
     this.answered = false;
     this.resultMessage = '';
     this.showQuiz = false;
@@ -123,15 +136,32 @@ export class UpoznavanjeComponent {
     if (this.currentSectionIndex < this.sections.length) {
       this.showIntro = true;
     }
+
+    if (this.progress === 100) {
+      localStorage.setItem('upoznavanjeProgress', 'completed');
+    }
   }
 
   restart() {
     this.currentSectionIndex = 0;
     this.currentLessonIndex = 0;
+    this.completedLessonsList = [];
     this.showIntro = false;
     this.showQuiz = false;
     this.answered = false;
     this.resultMessage = '';
     this.showWelcome = true;
+    localStorage.removeItem('upoznavanjeProgress');
+  }
+  goToLection() {
+    const lectionName = 'upoznavanje';
+    const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
+
+    if (!completedLections.includes(lectionName)) {
+      completedLections.push(lectionName);
+      localStorage.setItem('completedLections', JSON.stringify(completedLections));
+    }
+
+    this.router.navigate(['/progress']);
   }
 }

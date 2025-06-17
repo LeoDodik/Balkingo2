@@ -42,7 +42,10 @@
     <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
       <h2>Čestitamo! Završili ste sve lekcije.</h2>
       <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
-      <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+      <div style="display: flex; gap: 10px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
     </div>
   </div>
 </div>
