@@ -25,10 +25,6 @@
   </aside>
 
   <main class="main-content">
-    <section class="welcome-section">
-      <h1 class="headline">Dobrodošao na Balkingo Dashboard!</h1>
-      <p class="subtext">Pregledaj svoj napredak i nastavi učiti njemački jezik.</p>
-    </section>
 
     <section class="progress-section">
       <h2 class="progress-title">Tvoj napredak</h2>
@@ -39,10 +35,13 @@
       </div>
 
       <div class="lections-grid">
-        <div *ngFor="let lection of lections" class="lection-card-dark">
+        <div *ngFor="let lection of lections" class="lection-card">
           <div class="lection-title">{{ lection.toUpperCase() }}</div>
-          <span class="status-badge" [ngClass]="completedLections.includes(lection) ? 'badge-success' : 'badge-warning'">
-            {{ completedLections.includes(lection) ? 'Završeno ✅' : 'U tijeku ❌' }}
+          <span class="status-badge"
+                [ngClass]="completedLections.includes(lection) ? 'badge-success' : 'badge-warning'">
+            <i class="fas"
+               [ngClass]="completedLections.includes(lection) ? 'fa-check-circle' : 'fa-hourglass-half'"></i>
+            {{ completedLections.includes(lection) ? 'Završeno' : 'U tijeku' }}
           </span>
         </div>
       </div>

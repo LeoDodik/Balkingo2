@@ -179,3 +179,30 @@ body {
   background-color: #f59e0b;
   color: #fff;
 }
+
+.toast-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #FFD700; /* Yellow */
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  color: #00224d; /* Dark blue text for contrast */
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: fit-content;
+  margin-top: 1.5rem;
+}
+
+.toast-card:hover {
+  background-color: #e6c200; /* Darker yellow for hover */
+  transform: scale(1.03);
+}
+
+.toast-card i {
+  font-size: 1.4rem;
+  color: #00224d; /* Matching dark blue icon */
+}
