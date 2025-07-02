@@ -229,3 +229,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+@media (max-width: 600px) {
+  .input__search {
+    font-size: 11px;
+  }
+}
