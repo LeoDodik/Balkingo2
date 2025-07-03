@@ -20,14 +20,16 @@ export class ProfileSetupComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSave() {
+    this.nicknameTaken = false; // Reset on submit
+
     if (!this.nickname || !this.country || !this.experience) {
-      alert('Molimo ispunite sva polja.');
+      this.nicknameTaken = true;
       return;
     }
 
     const email = localStorage.getItem('userEmail');
     if (!email) {
-      alert('Greška: Email nije pronađen.');
+      this.nicknameTaken = true;
       return;
     }
 
@@ -41,17 +43,13 @@ export class ProfileSetupComponent {
     this.http.post<any>('http://localhost:8080/api/auth/profile-setup', profileData).subscribe({
       next: (response) => {
         if (response.status === 'OK') {
-          alert('Profil uspješno spremljen!');
-          this.router.navigate(['/dashboard']); // ✅ Redirect to dashboard
+          this.router.navigate(['/dashboard']);
         } else if (response.status === 'ERROR' && response.message === 'Nickname already taken') {
-          alert('Greška: Nadimak je već zauzet.');
           this.nicknameTaken = true;
-        } else {
-          alert('Neočekivana greška.');
         }
       },
       error: () => {
-        alert('Greška prilikom spremanja profila.');
+        this.nicknameTaken = true;
       }
     });
   }

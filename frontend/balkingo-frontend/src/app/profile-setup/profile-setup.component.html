@@ -4,6 +4,11 @@
     <h2>Postavljanje profila</h2>
   </div>
 
+  <!-- Toast message -->
+  <div *ngIf="nicknameTaken" class="toast-error">
+    Nadimak je već zauzet.
+  </div>
+
   <form (ngSubmit)="onSave()" #profileForm="ngForm">
     <label for="nickname">Nadimak</label>
     <input type="text" id="nickname" name="nickname" [(ngModel)]="nickname" placeholder="Unesite nadimak" required />
