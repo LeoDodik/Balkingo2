@@ -1,4 +1,4 @@
-/* General reset */
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +11,27 @@ body {
   color: #ffffff;
 }
 
-/* Main container for the login page */
+/* Toast Notification */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #FFD700;
+  color: #1f2937;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 9999;
+  font-weight: 600;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* Main Container */
 .login-container {
   display: flex;
   justify-content: center;
@@ -19,10 +39,9 @@ body {
   height: 100vh;
   flex-direction: column;
   background-color: #003366;
-
 }
 
-/* Logo section */
+/* Logo */
 .logo-container {
   text-align: center;
   margin-bottom: 30px;
@@ -43,93 +62,14 @@ body {
   margin-left: 10px;
 }
 
-/* Login form container */
-.login-form-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Light background for the form */
-  padding: 30px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+/* Form Layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.login-title {
-  font-size: 2rem;
-  color: #003366;
-  margin-bottom: 20px;
-}
-
-/* Input fields */
-.form-input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #003366;
-  border-radius: 5px;
-  font-size: 1rem;
-  color: #003366;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #FFD700;
-}
-
-/* Button styling */
-.zapocni-btn {
-  background-color: #FFD700;
-  color: #003366;
-  font-size: 1.25rem;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-top: 20px;
-}
-
-.zapocni-btn:hover {
-  background-color: #D32F2F;
-  transform: scale(1.05);
-}
-
-.zapocni-btn:focus {
-  outline: none;
-}
-
-/* Error message styling */
-.error-message {
-  color: #D32F2F;
-  font-size: 1rem;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-  .login-container {
-    padding: 20px;
-  }
-
-  .login-form-container {
-    padding: 20px;
-  }
-
-  .logo {
-    font-size: 3rem;
-  }
-
-  .logo-crown {
-    font-size: 2rem;
-  }
-
-  .login-title {
-    font-size: 1.5rem;
-  }
-}
-
-/* 3D Styled Email Input */
+/* 3D Input Container */
 .input__container {
   position: relative;
   background: #f0f0f0;
@@ -166,6 +106,7 @@ body {
   filter: blur(20px);
 }
 
+/* Input Button */
 .input__button__shadow {
   cursor: pointer;
   border: 3px solid #000;
@@ -194,12 +135,13 @@ body {
   height: 25px;
 }
 
+/* Input Field */
 .input__search {
   width: 100%;
   outline: none;
   border: 3px solid #000;
   padding: 15px;
-  font-size: 18px;
+  font-size: 16px;
   background: #fff;
   color: #000;
   transform: translateZ(10px);
@@ -223,15 +165,43 @@ body {
   box-shadow: 5px 5px 0 0 #000;
 }
 
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Button */
+.zapocni-btn {
+  background-color: #FFD700;
+  color: #003366;
+  font-size: 1.25rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
 }
 
+.zapocni-btn:hover {
+  background-color: #D32F2F;
+  transform: scale(1.05);
+}
+
+/* Error */
+.error-message {
+  color: #D32F2F;
+  font-size: 1rem;
+  margin-top: -2px;
+  margin-bottom: 10px;
+}
+
+/* Responsive Font */
 @media (max-width: 600px) {
   .input__search {
     font-size: 11px;
+  }
+
+  .logo {
+    font-size: 3rem;
+  }
+
+  .logo-crown {
+    font-size: 2rem;
   }
 }
