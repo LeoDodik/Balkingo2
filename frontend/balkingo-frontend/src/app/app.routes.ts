@@ -43,6 +43,10 @@ export const routes: Routes = [
   {
     path: 'days',
     loadComponent: () => import('./days/days.component').then(m => m.DaysComponent)
+  },
+  {
+    path: 'time',
+    loadComponent: () => import('./time/time.component').then(m => m.TimeComponent)
   }
 
 ];
