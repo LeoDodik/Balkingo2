@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import {UpoznavanjeComponent} from './upoznavanje/upoznavanje.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +39,10 @@ export const routes: Routes = [
   {
     path: 'brojevi',
     loadComponent: () => import('./brojevi/brojevi.component').then(m => m.BrojeviComponent)
+  },
+  {
+    path: 'days',
+    loadComponent: () => import('./days/days.component').then(m => m.DaysComponent)
   }
 
 ];

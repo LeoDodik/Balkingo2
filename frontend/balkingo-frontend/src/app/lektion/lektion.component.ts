@@ -50,6 +50,10 @@ export class LektionComponent {
     this.router.navigate(['/brojevi']);
   }
 
+  goToDays(){
+    this.router.navigate(['/days']);
+  }
+
   // Update screen width on resize
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

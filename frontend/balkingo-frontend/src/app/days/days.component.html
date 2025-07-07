@@ -35,14 +35,7 @@
         <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
       </div>
 
-      <div
-        class="answer"
-        *ngFor="let ans of currentLesson.answers"
-        (click)="!answered && checkAnswer(ans)"
-        [class.disabled]="answered"
-        [class.correct]="answered && ans === currentLesson.correct"
-        [class.incorrect]="answered && ans !== currentLesson.correct && ans === selectedAnswer"
-      >
+      <div class="answer" *ngFor="let ans of currentLesson.answers" (click)="checkAnswer(ans)" [class.disabled]="answered" [class.correct]="answered && ans === currentLesson.correct" [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans">
         {{ ans }}
       </div>
 

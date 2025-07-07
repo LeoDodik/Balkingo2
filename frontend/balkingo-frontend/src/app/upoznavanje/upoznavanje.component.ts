@@ -1,6 +1,3 @@
-// ----------------------
-// UPDATED UpoznavanjeComponent
-// ----------------------
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -21,6 +18,7 @@ export class UpoznavanjeComponent {
   answered = false;
   resultMessage = '';
   completedLessonsList: string[] = [];
+  selectedAnswer: string | null = null;  // <-- Track selected answer
 
   constructor(private router: Router) {}
 
@@ -34,7 +32,8 @@ export class UpoznavanjeComponent {
           description: '“Guten Tag” znači “Dobar dan” i koristi se u formalnim situacijama tokom dana.',
           question: 'Što znači “Guten Tag”?',
           correct: 'Dobar dan',
-          answers: ['Zdravo', 'Dobar dan', 'Doviđenja', 'Kako se zoveš?']
+          answers: ['Zdravo', 'Dobar dan', 'Doviđenja', 'Kako se zoveš?'],
+          funFact: '“Guten Tag” se doslovno prevodi kao “Dobar dan” i često se koristi do kasnog popodneva.'
         }
       ]
     },
@@ -47,7 +46,8 @@ export class UpoznavanjeComponent {
           description: '“Wie heißt du?” znači “Kako se zoveš?” i koristi se kada želiš upoznati nekoga.',
           question: 'Što znači “Wie heißt du?”',
           correct: 'Kako se zoveš?',
-          answers: ['Koliko imaš godina?', 'Kako se zoveš?', 'Gdje živiš?', 'Kako si?']
+          answers: ['Koliko imaš godina?', 'Kako se zoveš?', 'Gdje živiš?', 'Kako si?'],
+          funFact: 'U Njemačkoj je uobičajeno pitati ime vrlo brzo prilikom upoznavanja.'
         },
         {
           id: 'pitanje-woher-kommst-du',
@@ -55,7 +55,8 @@ export class UpoznavanjeComponent {
           description: '“Woher kommst du?” znači “Odakle dolaziš?” i koristi se kada želiš znati nečije porijeklo.',
           question: 'Što znači “Woher kommst du?”',
           correct: 'Odakle dolaziš?',
-          answers: ['Odakle dolaziš?', 'Koliko imaš godina?', 'Kako se zoveš?', 'Gdje živiš?']
+          answers: ['Odakle dolaziš?', 'Koliko imaš godina?', 'Kako se zoveš?', 'Gdje živiš?'],
+          funFact: 'Njemačka je zemlja mnogih imigranata, pa je ovo pitanje često u svakodnevnom govoru.'
         },
         {
           id: 'pitanje-wie-alt-bist-du',
@@ -63,7 +64,8 @@ export class UpoznavanjeComponent {
           description: '“Wie alt bist du?” znači “Koliko imaš godina?”.',
           question: 'Što znači “Wie alt bist du?”',
           correct: 'Koliko imaš godina?',
-          answers: ['Koliko imaš godina?', 'Gdje si?', 'Kako si?', 'Gdje živiš?']
+          answers: ['Koliko imaš godina?', 'Gdje si?', 'Kako si?', 'Gdje živiš?'],
+          funFact: 'Ovo pitanje može biti osobno, pa ga nemojte postavljati odmah svakome!'
         },
         {
           id: 'pozdrav-guten-abend',
@@ -71,7 +73,8 @@ export class UpoznavanjeComponent {
           description: '“Guten Abend” znači “Dobro veče” i koristi se u večernjim satima.',
           question: 'Kada se koristi “Guten Abend”?',
           correct: 'U večernjim satima',
-          answers: ['Ujutro', 'U večernjim satima', 'Tokom ručka', 'Kad se pozdravljaš s nekim']
+          answers: ['Ujutro', 'U večernjim satima', 'Tokom ručka', 'Kad se pozdravljaš s nekim'],
+          funFact: '“Guten Abend” se najčešće koristi od zalaska sunca pa nadalje.'
         }
       ]
     }
@@ -105,9 +108,13 @@ export class UpoznavanjeComponent {
     this.showIntro = false;
     this.answered = false;
     this.resultMessage = '';
+    this.selectedAnswer = null;  // reset selected answer
   }
 
   checkAnswer(selected: string) {
+    if (this.answered) return; // Prevent multiple clicks
+
+    this.selectedAnswer = selected;
     this.answered = true;
     const correct = this.currentLesson.correct;
     this.resultMessage = selected === correct
@@ -124,6 +131,7 @@ export class UpoznavanjeComponent {
     this.answered = false;
     this.resultMessage = '';
     this.showQuiz = false;
+    this.selectedAnswer = null;
 
     const currentSection = this.sections[this.currentSectionIndex];
     this.currentLessonIndex++;
@@ -150,9 +158,11 @@ export class UpoznavanjeComponent {
     this.showQuiz = false;
     this.answered = false;
     this.resultMessage = '';
+    this.selectedAnswer = null;
     this.showWelcome = true;
     localStorage.removeItem('upoznavanjeProgress');
   }
+
   goToLection() {
     const lectionName = 'upoznavanje';
     const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
