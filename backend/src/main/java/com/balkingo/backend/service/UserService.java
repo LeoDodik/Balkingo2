@@ -58,4 +58,7 @@ public class UserService {
         }
         throw new IllegalArgumentException("User not found");
     }
+    public boolean isPasswordCorrect(User user, String rawPassword) {
+        return passwordEncoder.matches(rawPassword, user.getPassword());
+    }
 }

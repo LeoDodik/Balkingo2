@@ -40,10 +40,15 @@ export class LoginRegisterComponent {
     this.http.post<any>('http://localhost:8080/api/auth/login', payload).subscribe({
       next: (res) => {
         if (res.status === 'NEW') {
+          // If the user is new (registered but no profile), go to profile setup
           localStorage.setItem('userEmail', this.email);
           this.router.navigateByUrl(res.redirect);
         } else if (res.status === 'EXISTS') {
-          this.showToast('Korisnik već postoji!');
+          // ✅ Email & password correct → go to dashboard
+          localStorage.setItem('userEmail', this.email);
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.showToast('Nepoznata greška.');
         }
       },
       error: () => {
@@ -51,4 +56,5 @@ export class LoginRegisterComponent {
       }
     });
   }
+
 }
