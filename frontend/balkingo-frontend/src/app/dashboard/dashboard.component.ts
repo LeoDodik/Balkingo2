@@ -45,6 +45,7 @@ export class DashboardComponent {
     return this.screenWidth <= 768;
   }
 
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = event.target.innerWidth;

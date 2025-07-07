@@ -45,6 +45,11 @@ export class LektionComponent {
   goToProgress() {
     this.router.navigate(['/progress']);
   }
+
+  goToNumbers(){
+    this.router.navigate(['/brojevi']);
+  }
+
   // Update screen width on resize
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

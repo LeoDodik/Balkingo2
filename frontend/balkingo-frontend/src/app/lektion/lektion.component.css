@@ -182,27 +182,48 @@ body {
 
 .toast-card {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background-color: #FFD700; /* Yellow */
-  padding: 1.2rem 1.5rem;
-  border-radius: 12px;
-  color: #00224d; /* Dark blue text for contrast */
+  width: 100%;
+  max-width: 100%;
+  background: linear-gradient(90deg, #ffdd57, #ffd700);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  color: #00224d;
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
-  width: fit-content;
-  margin-top: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
 }
 
 .toast-card:hover {
-  background-color: #e6c200; /* Darker yellow for hover */
-  transform: scale(1.03);
+  background: linear-gradient(90deg, #e6c200, #d4b200);
+  transform: translateY(-2px);
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .toast-card i {
-  font-size: 1.4rem;
-  color: #00224d; /* Matching dark blue icon */
+  font-size: 1.5rem;
+  color: #00224d;
+}
+
+.toast-message {
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.toast-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.toast-card:hover .toast-arrow {
+  transform: translateX(4px);
 }

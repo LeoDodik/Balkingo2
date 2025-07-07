@@ -32,12 +32,19 @@
   <p>Ovdje ćeš vidjeti svoje lekcije, više lekcija u budućnosti.</p>
 
   <div class="toast-card" (click)="goToUpoznavanje()">
-    <i class="fas fa-lightbulb"></i>
-    <span>UPOZNAVANJE</span>
+    <div class="toast-content">
+      <i class="fas fa-lightbulb"></i>
+      <span class="toast-message">UPOZNAVANJE</span>
+    </div>
+    <i class="fas fa-chevron-right toast-arrow"></i>
   </div>
-  <div class="toast-card" (click)="goToUpoznavanje()">
-    <i class="fas fa-lightbulb"></i>
-    <span>GRAMATIKA</span>
+
+  <div class="toast-card" (click)="goToNumbers()">
+    <div class="toast-content">
+      <i class="fas fa-list-numeric"></i>
+      <span class="toast-message">BROJEVI</span>
+    </div>
+    <i class="fas fa-chevron-right toast-arrow"></i>
   </div>
 </main>
 </div>

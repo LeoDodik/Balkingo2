@@ -36,5 +36,10 @@ export const routes: Routes = [
     path: 'progress',
     loadComponent: () =>
       import('./progress/progress.component').then(m => m.ProgressComponent)
+  },
+  {
+    path: 'brojevi',
+    loadComponent: () => import('./brojevi/brojevi.component').then(m => m.BrojeviComponent)
   }
+
 ];
