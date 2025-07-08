@@ -14,7 +14,7 @@ export class ProgressComponent implements OnInit {
   mobileMenuOpen = false;
   screenWidth = window.innerWidth;
 
-  lections = ['upoznavanje', 'brojevi', 'dani u tjednu','vrijeme','mjeseci/godisnja doba'];
+  lections = ['upoznavanje', 'brojevi', 'dani u tjednu','vrijeme','mjeseci'];
   completedLections: string[] = [];
 
   constructor(private router: Router) {}
