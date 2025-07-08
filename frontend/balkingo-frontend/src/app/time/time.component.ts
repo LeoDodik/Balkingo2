@@ -152,7 +152,7 @@ export class TimeComponent {
   }
 
   goToLection() {
-    const lectionName = 'time';
+    const lectionName = 'vrijeme';
     const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
 
     if (!completedLections.includes(lectionName)) {

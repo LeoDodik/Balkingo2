@@ -148,7 +148,7 @@ export class MonthsComponent {
   }
 
   goToLection() {
-    const lectionName = 'months';
+    const lectionName = 'mjeseci';
     const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
 
     if (!completedLections.includes(lectionName)) {

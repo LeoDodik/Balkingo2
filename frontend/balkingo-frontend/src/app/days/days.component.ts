@@ -170,7 +170,7 @@ export class DaysComponent {
   }
 
   goToLection() {
-    const lectionName = 'days';
+    const lectionName = 'dani u tjednu';
     const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
 
     if (!completedLections.includes(lectionName)) {
