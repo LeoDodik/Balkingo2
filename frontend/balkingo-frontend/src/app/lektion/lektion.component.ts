@@ -58,6 +58,10 @@ export class LektionComponent {
     this.router.navigate(['/time']);
   }
 
+  goToMonths(){
+    this.router.navigate(['/months']);
+  }
+
   // Update screen width on resize
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

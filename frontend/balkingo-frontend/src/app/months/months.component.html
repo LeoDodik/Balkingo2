@@ -1,0 +1,100 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli!</h2>
+    <p>Pripremite se za učenje mjeseci i godišnjih doba na njemačkom jeziku.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRO / TABLE -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}: {{ currentLesson.title }}</h2>
+
+      <!-- TABLE LESSON -->
+      <div *ngIf="currentLesson.id === 'months-table'">
+        <table class="month-table">
+          <thead>
+          <tr>
+            <th>Hrvatski</th>
+            <th>Njemački</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>Siječanj</td><td>Januar</td></tr>
+          <tr><td>Veljača</td><td>Februar</td></tr>
+          <tr><td>Ožujak</td><td>März</td></tr>
+          <tr><td>Travanj</td><td>April</td></tr>
+          <tr><td>Svibanj</td><td>Mai</td></tr>
+          <tr><td>Lipanj</td><td>Juni</td></tr>
+          <tr><td>Srpanj</td><td>Juli</td></tr>
+          <tr><td>Kolovoz</td><td>August</td></tr>
+          <tr><td>Rujan</td><td>September</td></tr>
+          <tr><td>Listopad</td><td>Oktober</td></tr>
+          <tr><td>Studeni</td><td>November</td></tr>
+          <tr><td>Prosinac</td><td>Dezember</td></tr>
+          </tbody>
+        </table>
+
+        <div class="fun-fact" *ngIf="currentLesson.funFact">
+          💡 <em>{{ currentLesson.funFact }}</em>
+        </div>
+
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+
+      <!-- STANDARD LESSON -->
+      <div *ngIf="currentLesson.id !== 'months-table'">
+        <p>{{ currentLesson.description }}</p>
+        <div class="fun-fact" *ngIf="currentLesson.funFact">
+          💡 <em>{{ currentLesson.funFact }}</em>
+        </div>
+        <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson?.question && currentLesson.answers?.length" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div class="answer"
+           *ngFor="let ans of currentLesson.answers"
+           (click)="checkAnswer(ans)"
+           [class.disabled]="answered"
+           [class.correct]="answered && ans === currentLesson.correct"
+           [class.incorrect]="answered && ans !== currentLesson.correct">
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste sve lekcije.</h2>
+      <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
+      <div style="display: flex; gap: 10px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

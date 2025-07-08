@@ -47,6 +47,10 @@ export const routes: Routes = [
   {
     path: 'time',
     loadComponent: () => import('./time/time.component').then(m => m.TimeComponent)
+  },
+  {
+    path: 'months',
+    loadComponent: () => import('./months/months.component').then(m => m.MonthsComponent)
   }
 
 ];
