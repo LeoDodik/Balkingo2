@@ -1,51 +1,133 @@
-.logo-container {
+/* ==== Background and Layout ==== */
+.hero {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   height: 100vh;
-  background-color: #003366;
+  background: linear-gradient(-45deg, #003366, #001933, #002244, #003366);
+  background-size: 400% 400%;
+  animation: bgAnimate 12s ease infinite;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  width: 100%;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* ==== Branding ==== */
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
 }
 
 .logo {
   font-size: 4rem;
-  font-weight: bold;
+  font-weight: 800;
+  font-family: 'Montserrat', sans-serif;
   background: linear-gradient(90deg, #003366, #FFD700, #D32F2F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
 }
 
 .logo-crown {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: #FFD700;
-  margin-left: 10px;
+  animation: float 2s ease-in-out infinite;
 }
 
-.logo-description {
-  color: #FFFFFF;
+/* ==== Typing Text ==== */
+.typewriter {
   font-size: 1.25rem;
-  margin-top: 10px;
-  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  border-right: 3px solid rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  margin: 1rem auto 2rem;
+  animation: typing 4s steps(60, end) forwards, blink 0.8s infinite;
 }
 
+/* ==== CTA Button ==== */
 .zapocni-btn {
+  font-size: 1.2rem;
   background-color: #FFD700;
   color: #003366;
-  font-size: 1.25rem;
-  padding: 12px 24px;
+  padding: 14px 32px;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-top: 20px;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
 }
 
 .zapocni-btn:hover {
   background-color: #D32F2F;
+  color: white;
   transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(255, 0, 0, 0.3);
 }
 
-.zapocni-btn:focus {
-  outline: none;
+/* ==== Animations ==== */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: rgba(255, 255, 255, 0.75); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bgAnimate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 3rem;
+  }
+  .logo-crown {
+    font-size: 2rem;
+  }
+  .typewriter {
+    font-size: 1rem;
+    white-space: normal;
+    animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
+  }
+  .zapocni-btn {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 2.2rem;
+  }
+  .logo-crown {
+    font-size: 1.5rem;
+  }
 }

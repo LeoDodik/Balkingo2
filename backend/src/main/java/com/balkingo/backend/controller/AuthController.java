@@ -27,28 +27,32 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<User> optionalUser = userService.findByEmail(request.email);
 
+        User user;
+
         if (optionalUser.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "status", "ERROR",
-                    "message", "Korisnik ne postoji"
+            // 🟡 New user → auto-register
+            user = userService.register(request.email, request.password);
+            return ResponseEntity.ok(Map.of(
+                    "status", "NEW",
+                    "redirect", "/profile-setup"
+            ));
+        } else {
+            user = optionalUser.get();
+
+            if (!userService.isPasswordCorrect(user, request.password)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                        "status", "ERROR",
+                        "message", "Pogrešna lozinka"
+                ));
+            }
+
+            boolean isComplete = userService.isProfileComplete(user);
+            String redirectPath = isComplete ? "/dashboard" : "/profile-setup";
+
+            return ResponseEntity.ok(Map.of(
+                    "status", isComplete ? "EXISTS" : "NEW",
+                    "redirect", redirectPath
             ));
         }
-
-        User user = optionalUser.get();
-
-        if (!userService.isPasswordCorrect(user, request.password)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "status", "ERROR",
-                    "message", "Pogrešna lozinka"
-            ));
-        }
-
-        boolean isComplete = userService.isProfileComplete(user);
-        String redirectPath = isComplete ? "/dashboard" : "/profile-setup";
-
-        return ResponseEntity.ok(Map.of(
-                "status", isComplete ? "EXISTS" : "NEW",
-                "redirect", redirectPath
-        ));
     }
 }
