@@ -35,7 +35,7 @@ export class ProgressComponent implements OnInit {
   }
 
   editProfile() {
-    this.router.navigate(['/profile-setup']);
+    this.router.navigate(['/edit-profile']);
   }
 
   logout() {

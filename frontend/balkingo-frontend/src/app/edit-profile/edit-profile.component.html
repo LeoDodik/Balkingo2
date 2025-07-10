@@ -1,25 +1,26 @@
 <div class="profile-container">
   <div class="profile-header">
     <span class="logo">Balkingo</span><i class="fas fa-crown logo-crown"></i>
-    <h2>Postavljanje profila</h2>
+    <h2>Uredi profil</h2>
   </div>
 
-  <!-- Toast message -->
   <div *ngIf="nicknameTaken" class="toast-error">
     Nadimak je već zauzet.
   </div>
-
-  <div *ngIf="errorMessage" class="toast-error">
+  <div *ngIf="errorMessage && !nicknameTaken" class="toast-error">
     {{ errorMessage }}
   </div>
 
   <form (ngSubmit)="onSave()" #profileForm="ngForm">
     <label for="nickname">Nadimak</label>
-    <input type="text" id="nickname" name="nickname" [(ngModel)]="nickname" placeholder="Unesite nadimak" required />
+    <input type="text" id="nickname" name="nickname" [(ngModel)]="nickname" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" [(ngModel)]="email" required />
 
     <label for="country">Država</label>
     <select id="country" name="country" [(ngModel)]="country" required>
-      <option value="" disabled selected>Odaberite državu</option>
+      <option value="" disabled>Odaberite državu</option>
       <option value="hrvatska">Hrvatska</option>
       <option value="srbija">Srbija</option>
       <option value="bosna">Bosna</option>
@@ -27,7 +28,7 @@
 
     <label for="experience">Razina znanja njemačkog</label>
     <select id="experience" name="experience" [(ngModel)]="experience" required>
-      <option value="" disabled selected>Odaberite razinu</option>
+      <option value="" disabled>Odaberite razinu</option>
       <option value="pocetnik">Početnik</option>
       <option value="srednji">Srednji</option>
       <option value="napredni">Napredni</option>

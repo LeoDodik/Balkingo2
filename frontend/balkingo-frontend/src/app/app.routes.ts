@@ -51,6 +51,10 @@ export const routes: Routes = [
   {
     path: 'months',
     loadComponent: () => import('./months/months.component').then(m => m.MonthsComponent)
+  },
+  {
+    path: 'edit-profile',
+    loadComponent: () => import('./edit-profile/edit-profile.component').then(m => m.EditProfileComponent)
   }
 
 ];

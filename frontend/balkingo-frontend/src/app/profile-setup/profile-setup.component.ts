@@ -16,20 +16,22 @@ export class ProfileSetupComponent {
   country = '';
   experience = '';
   nicknameTaken = false;
+  errorMessage = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onSave() {
-    this.nicknameTaken = false; // Reset on submit
+    this.nicknameTaken = false;
+    this.errorMessage = '';
 
     if (!this.nickname || !this.country || !this.experience) {
-      this.nicknameTaken = true;
+      this.errorMessage = 'Molimo ispunite sva polja.';
       return;
     }
 
     const email = localStorage.getItem('userEmail');
     if (!email) {
-      this.nicknameTaken = true;
+      this.errorMessage = 'Nema spremljenog emaila.';
       return;
     }
 
@@ -44,12 +46,14 @@ export class ProfileSetupComponent {
       next: (response) => {
         if (response.status === 'OK') {
           this.router.navigate(['/dashboard']);
-        } else if (response.status === 'ERROR' && response.message === 'Nickname already taken') {
-          this.nicknameTaken = true;
         }
       },
-      error: () => {
-        this.nicknameTaken = true;
+      error: (error) => {
+        if (error.error?.message === 'Nickname already taken') {
+          this.nicknameTaken = true;
+        } else {
+          this.errorMessage = 'Greška pri spremanju profila.';
+        }
       }
     });
   }

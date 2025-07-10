@@ -25,7 +25,7 @@ export class DashboardComponent {
   }
 
   editProfile() {
-    this.router.navigate(['/profile-setup']);
+    this.router.navigate(['/edit-profile']);
   }
 
   logout() {
