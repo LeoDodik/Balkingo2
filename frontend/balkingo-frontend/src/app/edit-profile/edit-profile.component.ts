@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import {
+  trigger,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,6 +16,17 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('200ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+      ])
+    ])
+  ]
 })
 export class EditProfileComponent implements OnInit {
   email = '';
@@ -19,13 +36,14 @@ export class EditProfileComponent implements OnInit {
 
   nicknameTaken = false;
   errorMessage = '';
+  showToast = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     const savedEmail = localStorage.getItem('userEmail');
     if (!savedEmail) {
-      this.errorMessage = 'Korisnički email nije pronađen.';
+      this.showError('Korisnički email nije pronađen.');
       return;
     }
 
@@ -36,11 +54,10 @@ export class EditProfileComponent implements OnInit {
         next: (user) => {
           this.nickname = user.nickname ?? '';
           this.country = user.country ?? '';
-          // If backend returns "level", map it to experience
           this.experience = user.level ?? user.experience ?? '';
         },
         error: () => {
-          this.errorMessage = 'Greška pri dohvaćanju korisničkih podataka.';
+          this.showError('Greška pri dohvaćanju korisničkih podataka.');
         }
       });
   }
@@ -48,9 +65,10 @@ export class EditProfileComponent implements OnInit {
   onSave(): void {
     this.nicknameTaken = false;
     this.errorMessage = '';
+    this.showToast = false;
 
     if (!this.nickname || !this.country || !this.experience) {
-      this.errorMessage = 'Molimo ispunite sva polja.';
+      this.showError('Molimo ispunite sva polja.');
       return;
     }
 
@@ -71,10 +89,20 @@ export class EditProfileComponent implements OnInit {
         error: (err) => {
           if (err.error?.message === 'Nickname already taken') {
             this.nicknameTaken = true;
+            this.showError('');
           } else {
-            this.errorMessage = 'Greška pri spremanju podataka.';
+            this.showError('Greška pri spremanju podataka.');
           }
         }
       });
+  }
+
+  private showError(message: string): void {
+    this.errorMessage = message;
+    this.showToast = true;
+
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
   }
 }

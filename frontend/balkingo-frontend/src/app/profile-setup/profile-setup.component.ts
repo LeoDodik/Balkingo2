@@ -17,21 +17,23 @@ export class ProfileSetupComponent {
   experience = '';
   nicknameTaken = false;
   errorMessage = '';
+  showToast = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onSave() {
     this.nicknameTaken = false;
     this.errorMessage = '';
+    this.showToast = false;
 
     if (!this.nickname || !this.country || !this.experience) {
-      this.errorMessage = 'Molimo ispunite sva polja.';
+      this.showError('Molimo ispunite sva polja.');
       return;
     }
 
     const email = localStorage.getItem('userEmail');
     if (!email) {
-      this.errorMessage = 'Nema spremljenog emaila.';
+      this.showError('Nema spremljenog emaila.');
       return;
     }
 
@@ -39,7 +41,7 @@ export class ProfileSetupComponent {
       email: email,
       nickname: this.nickname.trim(),
       country: this.country,
-      level: this.experience
+      level: this.experience,
     };
 
     this.http.post<any>('http://localhost:8080/api/auth/profile-setup', profileData).subscribe({
@@ -51,10 +53,19 @@ export class ProfileSetupComponent {
       error: (error) => {
         if (error.error?.message === 'Nickname already taken') {
           this.nicknameTaken = true;
+          this.showError('Nadimak je već zauzet.');
         } else {
-          this.errorMessage = 'Greška pri spremanju profila.';
+          this.showError('Greška pri spremanju profila.');
         }
-      }
+      },
     });
+  }
+
+  private showError(message: string) {
+    this.errorMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
   }
 }

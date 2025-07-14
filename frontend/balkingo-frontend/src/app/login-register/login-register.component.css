@@ -13,9 +13,8 @@
 
 /* === Toast === */
 .toast {
-  position: fixed;
+  position: absolute;
   top: 20px;
-  right: 20px;
   background-color: #FFD700;
   color: #1f2937;
   padding: 12px 20px;

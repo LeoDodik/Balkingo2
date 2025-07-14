@@ -4,11 +4,9 @@
     <h2>Uredi profil</h2>
   </div>
 
-  <div *ngIf="nicknameTaken" class="toast-error">
-    Nadimak je već zauzet.
-  </div>
-  <div *ngIf="errorMessage && !nicknameTaken" class="toast-error">
-    {{ errorMessage }}
+  <!-- Animated toast -->
+  <div *ngIf="showToast" class="toast-error" [@fadeInOut]>
+    {{ nicknameTaken ? 'Nadimak je već zauzet.' : errorMessage }}
   </div>
 
   <form (ngSubmit)="onSave()" #profileForm="ngForm">
@@ -17,7 +15,6 @@
 
     <label for="email">Email</label>
     <input type="email" id="email" name="email" [(ngModel)]="email" required readonly />
-
 
     <label for="country">Država</label>
     <select id="country" name="country" [(ngModel)]="country" required>
