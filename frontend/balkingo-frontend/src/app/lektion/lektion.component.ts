@@ -23,6 +23,10 @@ export class LektionComponent {
   goToLection() {
     this.router.navigate(['/lektion']);
   }
+  goToWeather() {
+    this.router.navigate(['/weather']);
+  }
+
 
   editProfile() {
     this.router.navigate(['/edit-profile']);

@@ -55,6 +55,10 @@ export const routes: Routes = [
   {
     path: 'edit-profile',
     loadComponent: () => import('./edit-profile/edit-profile.component').then(m => m.EditProfileComponent)
+  },
+  {
+    path: 'weather',
+    loadComponent: () => import('./weather/weather.component').then(m => m.WeatherComponent)
   }
 
 ];
