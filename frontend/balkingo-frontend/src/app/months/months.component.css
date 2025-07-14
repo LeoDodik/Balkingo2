@@ -127,6 +127,7 @@ body, html {
 
 .month-table th {
   background-color: #f2f2f2;
+  color:black;
 }
 
 .start-btn, .next-btn {

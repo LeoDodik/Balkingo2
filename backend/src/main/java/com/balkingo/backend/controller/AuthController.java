@@ -116,4 +116,22 @@ public class AuthController {
         ));
     }
 
+    @PutMapping("/edit-profile")
+    public ResponseEntity<?> editProfile(@RequestBody AuthController.ProfileRequest profileRequest) {
+        try {
+            userService.updateProfile(
+                    profileRequest.getEmail(),
+                    profileRequest.getNickname(),
+                    profileRequest.getCountry(),
+                    profileRequest.getLevel()
+            );
+            return ResponseEntity.ok(Map.of("status", "OK"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "status", "ERROR",
+                    "message", e.getMessage()
+            ));
+        }
+    }
+
 }
