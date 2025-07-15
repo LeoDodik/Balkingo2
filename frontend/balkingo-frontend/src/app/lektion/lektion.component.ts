@@ -27,7 +27,9 @@ export class LektionComponent {
     this.router.navigate(['/weather']);
   }
 
-
+goToHobbys(){
+    this.router.navigate(['/hobbys']);
+}
   editProfile() {
     this.router.navigate(['/edit-profile']);
   }
