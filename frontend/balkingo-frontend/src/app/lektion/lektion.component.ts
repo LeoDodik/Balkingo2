@@ -1,6 +1,7 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-lektion',
@@ -9,37 +10,47 @@ import { Router } from '@angular/router';
   templateUrl: './lektion.component.html',
   styleUrls: ['./lektion.component.css']
 })
-export class LektionComponent {
+export class LektionComponent implements OnInit {
   screenWidth = window.innerWidth;
   mobileMenuOpen = false;
+  userLevel: string = ''; // Holds "pocetnik", "srednji", etc.
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.fetchUserLevel();
+  }
+
+  fetchUserLevel() {
+    const email = localStorage.getItem('userEmail');
+    if (!email) return;
+
+    this.http.get<any>(`http://localhost:8080/api/auth/user-by-email/${email}`).subscribe({
+      next: (data) => {
+        this.userLevel = data.level;
+      },
+      error: (err) => {
+        console.error('Failed to load user level:', err);
+      }
+    });
+  }
 
   // Navigation methods
-  goToUpoznavanje() {
-    this.router.navigate(['/lektion/upoznavanje']);
-  }
-
-  goToLection() {
-    this.router.navigate(['/lektion']);
-  }
-  goToWeather() {
-    this.router.navigate(['/weather']);
-  }
-
-goToHobbys(){
-    this.router.navigate(['/hobbys']);
-}
-  editProfile() {
-    this.router.navigate(['/edit-profile']);
-  }
-
+  goToUpoznavanje() { this.router.navigate(['/lektion/upoznavanje']); }
+  goToLection() { this.router.navigate(['/lektion']); }
+  goToWeather() { this.router.navigate(['/weather']); }
+  goToHobbys() { this.router.navigate(['/hobbys']); }
+  goToProgress() { this.router.navigate(['/progress']); }
+  editProfile() { this.router.navigate(['/edit-profile']); }
   logout() {
     localStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
+  goToNumbers() { this.router.navigate(['/brojevi']); }
+  goToDays() { this.router.navigate(['/days']); }
+  goToTime() { this.router.navigate(['/time']); }
+  goToMonths() { this.router.navigate(['/months']); }
 
-  // Toggle for mobile sidebar
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
@@ -48,34 +59,9 @@ goToHobbys(){
     return this.screenWidth <= 768;
   }
 
-  goToProgress() {
-    this.router.navigate(['/progress']);
-  }
-
-  goToNumbers(){
-    this.router.navigate(['/brojevi']);
-  }
-
-  goToDays(){
-    this.router.navigate(['/days']);
-  }
-
-  goToTime(){
-    this.router.navigate(['/time']);
-  }
-
-  goToMonths(){
-    this.router.navigate(['/months']);
-  }
-
-  // Update screen width on resize
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = event.target.innerWidth;
-
-    // Close mobile menu when resizing to desktop
-    if (!this.isMobileScreen()) {
-      this.mobileMenuOpen = false;
-    }
+    if (!this.isMobileScreen()) this.mobileMenuOpen = false;
   }
 }

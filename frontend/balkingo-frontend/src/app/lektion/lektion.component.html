@@ -31,60 +31,68 @@
   <h1>Dobrodošao u tvoje lekcije</h1>
   <p>Ovdje ćeš vidjeti svoje lekcije, više lekcija u budućnosti.</p>
 
-  <div class="toast-card" (click)="goToUpoznavanje()">
-    <div class="toast-content">
-      <i class="fas fa-lightbulb"></i>
-      <span class="toast-message">UPOZNAVANJE</span>
+  <!-- Beginner level -->
+  <div *ngIf="userLevel === 'pocetnik' || userLevel === 'sve'">
+    <div class="toast-card" (click)="goToUpoznavanje()">
+      <div class="toast-content">
+        <i class="fas fa-lightbulb"></i>
+        <span class="toast-message">UPOZNAVANJE</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
     </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
+
+    <div class="toast-card" (click)="goToNumbers()">
+      <div class="toast-content">
+        <i class="fas fa-list-numeric"></i>
+        <span class="toast-message">BROJEVI</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
+
+    <div class="toast-card" (click)="goToDays()">
+      <div class="toast-content">
+        <i class="fas fa-calendar-days"></i>
+        <span class="toast-message">DANI U TJEDNU</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
+
+    <div class="toast-card" (click)="goToTime()">
+      <div class="toast-content">
+        <i class="fas fa-clock"></i>
+        <span class="toast-message">VRIJEME</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
+
+    <div class="toast-card" (click)="goToMonths()">
+      <div class="toast-content">
+        <i class="fas fa-moon"></i>
+        <span class="toast-message">MJESECI</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
+
+    <div class="toast-card" (click)="goToWeather()">
+      <div class="toast-content">
+        <i class="fas fa-snowflake"></i>
+        <span class="toast-message">KLIMA</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
   </div>
 
-  <div class="toast-card" (click)="goToNumbers()">
-    <div class="toast-content">
-      <i class="fas fa-list-numeric"></i>
-      <span class="toast-message">BROJEVI</span>
+  <!-- Intermediate level -->
+  <div *ngIf="userLevel === 'srednji' || userLevel === 'sve'">
+    <div class="toast-card" (click)="goToHobbys()">
+      <div class="toast-content">
+        <i class="fas fa-football"></i>
+        <span class="toast-message">AKTIVNOSTI</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
     </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
   </div>
 
-  <div class="toast-card" (click)="goToDays()">
-    <div class="toast-content">
-      <i class="fas fa-calendar-days"></i>
-      <span class="toast-message">DANI U TJEDNU</span>
-    </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
-  </div>
 
-  <div class="toast-card" (click)="goToTime()">
-    <div class="toast-content">
-      <i class="fas fa-clock"></i>
-      <span class="toast-message">VRIJEME</span>
-    </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
-  </div>
-
-  <div class="toast-card" (click)="goToMonths()">
-    <div class="toast-content">
-      <i class="fas fa-moon"></i>
-      <span class="toast-message">MJESECI</span>
-    </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
-  </div>
-
-  <div class="toast-card" (click)="goToWeather()">
-    <div class="toast-content">
-      <i class="fas fa-snowflake"></i>
-      <span class="toast-message">KLIMA</span>
-    </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
-  </div>
-
-  <div class="toast-card" (click)="goToHobbys()">
-    <div class="toast-content">
-      <i class="fas fa-football"></i>
-      <span class="toast-message">AKTIVNOSTI</span>
-    </div>
-    <i class="fas fa-chevron-right toast-arrow"></i>
-  </div>
 </main>
 </div>
