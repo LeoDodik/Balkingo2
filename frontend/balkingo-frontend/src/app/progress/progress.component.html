@@ -25,9 +25,10 @@
   </aside>
 
   <main class="main-content">
-
     <section class="progress-section">
       <h2 class="progress-title">Tvoj napredak</h2>
+      <p class="level-info">Trenutni nivo znanja: <strong>{{ userLevel | titlecase }}</strong></p>
+
       <div class="progress-bar-wrapper">
         <div class="progress-bar-track">
           <div class="progress-bar-fill" id="progressBar"></div>
@@ -35,13 +36,13 @@
       </div>
 
       <div class="lections-grid">
-        <div *ngFor="let lection of lections" class="lection-card">
-          <div class="lection-title">{{ lection.toUpperCase() }}</div>
+        <div *ngFor="let lection of filteredLections" class="lection-card">
+          <div class="lection-title">{{ lection.name.toUpperCase() }}</div>
           <span class="status-badge"
-                [ngClass]="completedLections.includes(lection) ? 'badge-success' : 'badge-warning'">
+                [ngClass]="completedLections.includes(lection.name) ? 'badge-success' : 'badge-warning'">
             <i class="fas"
-               [ngClass]="completedLections.includes(lection) ? 'fa-check-circle' : 'fa-hourglass-half'"></i>
-            {{ completedLections.includes(lection) ? 'Završeno' : 'U tijeku' }}
+               [ngClass]="completedLections.includes(lection.name) ? 'fa-check-circle' : 'fa-hourglass-half'"></i>
+            {{ completedLections.includes(lection.name) ? 'Završeno' : 'U tijeku' }}
           </span>
         </div>
       </div>

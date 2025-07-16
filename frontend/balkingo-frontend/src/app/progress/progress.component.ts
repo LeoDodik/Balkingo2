@@ -1,11 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgForOf, NgClass, TitleCasePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-progress',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgForOf, NgClass, TitleCasePipe],
   templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.css']
 })
@@ -14,16 +15,60 @@ export class ProgressComponent implements OnInit {
   mobileMenuOpen = false;
   screenWidth = window.innerWidth;
 
-  lections = ['upoznavanje', 'brojevi', 'mjeseci','dani u tjednu','vrijeme','klima','aktivnosti'];
+  userLevel: string = ''; // will be loaded from backend
   completedLections: string[] = [];
+  filteredLections: { name: string; level: string }[] = [];
 
-  constructor(private router: Router) {}
+  lections = [
+    { name: 'upoznavanje', level: 'pocetnik' },
+    { name: 'brojevi', level: 'pocetnik' },
+    { name: 'mjeseci', level: 'pocetnik' },
+    { name: 'dani u tjednu', level: 'pocetnik' },
+    { name: 'vrijeme', level: 'pocetnik' },
+    { name: 'klima', level: 'pocetnik' },
+    { name: 'aktivnosti', level: 'srednji' }
+  ];
+
+  constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
-    const percent = Math.floor((this.completedLections.length / this.lections.length) * 100);
+    const email = localStorage.getItem('userEmail');
+    if (!email) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Fetch profile info
+    this.http.get<any>(`http://localhost:8080/api/auth/user-by-email/${email}`).subscribe({
+      next: (user) => {
+        this.userLevel = user.level || 'pocetnik'; // fallback just in case
+
+        // Load completed lessons
+        this.completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
+
+        // Filter lections by level
+        this.filteredLections = this.lections.filter(l => l.level === this.userLevel);
+
+        // Update progress bar
+        this.updateProgressBar();
+      },
+      error: () => {
+        console.error('Failed to fetch user data');
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
+  updateProgressBar() {
+    const completedCount = this.filteredLections.filter(l =>
+      this.completedLections.includes(l.name)
+    ).length;
+
+    const percent = Math.floor((completedCount / this.filteredLections.length) * 100);
     const bar = document.getElementById('progressBar');
-    if (bar) bar.style.width = percent + '%';
+    if (bar) {
+      bar.style.width = percent + '%';
+    }
   }
 
   toggleMenu() {
