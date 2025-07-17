@@ -36,11 +36,12 @@
       </div>
 
       <!-- Advance Level Button -->
-      <div class="advance-level" *ngIf="isLevelCompleted && nextLevelMap[userLevel]">
+      <div class="advance-level-wrapper" *ngIf="isLevelCompleted && nextLevelMap[userLevel]">
         <button (click)="advanceLevel()" class="advance-btn">
           Napreduj na {{ nextLevelMap[userLevel] | titlecase }} nivo
         </button>
       </div>
+
 
       <div class="lections-grid">
         <div *ngFor="let lection of filteredLections" class="lection-card">
