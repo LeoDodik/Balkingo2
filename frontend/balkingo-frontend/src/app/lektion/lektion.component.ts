@@ -41,6 +41,7 @@ export class LektionComponent implements OnInit {
   goToWeather() { this.router.navigate(['/weather']); }
   goToHobbys() { this.router.navigate(['/hobbys']); }
   goToProgress() { this.router.navigate(['/progress']); }
+  goToFamily() { this.router.navigate(['/family']); }
   editProfile() { this.router.navigate(['/edit-profile']); }
   logout() {
     localStorage.removeItem('userEmail');

@@ -63,6 +63,10 @@ export const routes: Routes = [
   {
     path: 'hobbys',
     loadComponent: () => import('./hobbys/hobbys.component').then(m => m.HobbysComponent)
+  },
+  {
+    path: 'family',
+    loadComponent: () => import('./family/family.component').then(m => m.FamilyComponent)
   }
 
 ];

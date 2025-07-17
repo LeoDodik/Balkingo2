@@ -1,12 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule, NgForOf, NgClass, TitleCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-progress',
   standalone: true,
-  imports: [CommonModule, NgForOf, NgClass, TitleCasePipe],
+  imports: [CommonModule],
   templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.css']
 })
@@ -15,9 +15,19 @@ export class ProgressComponent implements OnInit {
   mobileMenuOpen = false;
   screenWidth = window.innerWidth;
 
-  userLevel: string = ''; // will be loaded from backend
+  userLevel: string = 'pocetnik';
+  userEmail: string = '';
+  userNickname: string = '';
+  userCountry: string = '';
+
   completedLections: string[] = [];
   filteredLections: { name: string; level: string }[] = [];
+  isLevelCompleted = false;
+
+  nextLevelMap: { [key: string]: string } = {
+    pocetnik: 'srednji',
+    srednji: 'napredni'
+  };
 
   lections = [
     { name: 'upoznavanje', level: 'pocetnik' },
@@ -26,49 +36,75 @@ export class ProgressComponent implements OnInit {
     { name: 'dani u tjednu', level: 'pocetnik' },
     { name: 'vrijeme', level: 'pocetnik' },
     { name: 'klima', level: 'pocetnik' },
-    { name: 'aktivnosti', level: 'srednji' }
+    { name: 'aktivnosti', level: 'srednji' },
+    { name: 'familija', level: 'srednji' },
   ];
 
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
-    const email = localStorage.getItem('userEmail');
-    if (!email) {
-      this.router.navigate(['/login']);
-      return;
+    this.completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
+    this.userEmail = localStorage.getItem('userEmail') || '';
+
+    if (this.userEmail) {
+      this.http.get<any>(`http://localhost:8080/api/auth/user-by-email/${this.userEmail}`).subscribe({
+        next: (user) => {
+          this.userLevel = user.level || 'pocetnik';
+          this.userNickname = user.nickname || '';
+          this.userCountry = user.country || '';
+          localStorage.setItem('userLevel', this.userLevel);
+          this.loadLections();
+        },
+        error: (err) => {
+          console.error('Failed to load user level from backend', err);
+          this.userLevel = localStorage.getItem('userLevel') || 'pocetnik';
+          this.loadLections();
+        }
+      });
+    } else {
+      this.userLevel = localStorage.getItem('userLevel') || 'pocetnik';
+      this.loadLections();
     }
+  }
 
-    // Fetch profile info
-    this.http.get<any>(`http://localhost:8080/api/auth/user-by-email/${email}`).subscribe({
-      next: (user) => {
-        this.userLevel = user.level || 'pocetnik'; // fallback just in case
-
-        // Load completed lessons
-        this.completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
-
-        // Filter lections by level
-        this.filteredLections = this.lections.filter(l => l.level === this.userLevel);
-
-        // Update progress bar
-        this.updateProgressBar();
-      },
-      error: () => {
-        console.error('Failed to fetch user data');
-        this.router.navigate(['/login']);
-      }
-    });
+  loadLections() {
+    this.filteredLections = this.lections.filter(l => l.level === this.userLevel);
+    this.isLevelCompleted = this.filteredLections.every(l => this.completedLections.includes(l.name));
+    this.updateProgressBar();
   }
 
   updateProgressBar() {
-    const completedCount = this.filteredLections.filter(l =>
-      this.completedLections.includes(l.name)
-    ).length;
-
-    const percent = Math.floor((completedCount / this.filteredLections.length) * 100);
     const bar = document.getElementById('progressBar');
-    if (bar) {
-      bar.style.width = percent + '%';
-    }
+    const percent = Math.floor(
+      (this.filteredLections.filter(l => this.completedLections.includes(l.name)).length /
+        this.filteredLections.length) * 100
+    );
+    if (bar) bar.style.width = percent + '%';
+  }
+
+  advanceLevel() {
+    const nextLevel = this.nextLevelMap[this.userLevel];
+    if (!nextLevel) return;
+
+    const payload = {
+      email: this.userEmail,
+      nickname: this.userNickname,
+      country: this.userCountry,
+      level: nextLevel
+    };
+
+    this.http.put('http://localhost:8080/api/auth/edit-profile', payload).subscribe({
+      next: () => {
+        console.log('Level updated in backend.');
+        this.userLevel = nextLevel;
+        localStorage.setItem('userLevel', nextLevel);
+        this.loadLections();
+      },
+      error: err => {
+        console.error('Failed to update level:', err);
+        alert('Greška pri ažuriranju nivoa. Pokušaj ponovo.');
+      }
+    });
   }
 
   toggleMenu() {

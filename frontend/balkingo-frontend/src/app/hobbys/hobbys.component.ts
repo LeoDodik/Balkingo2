@@ -161,6 +161,6 @@ get currentLesson() {
       localStorage.setItem('completedLections', JSON.stringify(completedLections));
     }
 
-    this.router.navigate(['/progress']);
+    this.router.navigate(['/lektion']);
   }
 }

@@ -27,12 +27,19 @@
   <main class="main-content">
     <section class="progress-section">
       <h2 class="progress-title">Tvoj napredak</h2>
-      <p class="level-info">Trenutni nivo znanja: <strong>{{ userLevel | titlecase }}</strong></p>
+      <p>Trenutni nivo znanja: <strong>{{ userLevel | titlecase }}</strong></p>
 
       <div class="progress-bar-wrapper">
         <div class="progress-bar-track">
           <div class="progress-bar-fill" id="progressBar"></div>
         </div>
+      </div>
+
+      <!-- Advance Level Button -->
+      <div class="advance-level" *ngIf="isLevelCompleted && nextLevelMap[userLevel]">
+        <button (click)="advanceLevel()" class="advance-btn">
+          Napreduj na {{ nextLevelMap[userLevel] | titlecase }} nivo
+        </button>
       </div>
 
       <div class="lections-grid">
