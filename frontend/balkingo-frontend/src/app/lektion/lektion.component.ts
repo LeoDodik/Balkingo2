@@ -40,6 +40,7 @@ export class LektionComponent implements OnInit {
   goToLection() { this.router.navigate(['/lektion']); }
   goToWeather() { this.router.navigate(['/weather']); }
   goToHobbys() { this.router.navigate(['/hobbys']); }
+  goToClothes(){this.router.navigate(['/clothes']); }
   goToProgress() { this.router.navigate(['/progress']); }
   goToFamily() { this.router.navigate(['/family']); }
   editProfile() { this.router.navigate(['/edit-profile']); }

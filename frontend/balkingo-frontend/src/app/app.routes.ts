@@ -67,6 +67,10 @@ export const routes: Routes = [
   {
     path: 'family',
     loadComponent: () => import('./family/family.component').then(m => m.FamilyComponent)
+  },
+  {
+    path: 'clothes',
+    loadComponent: () => import('./clothes/clothes.component').then(m => m.ClothesComponent)
   }
 
 ];
