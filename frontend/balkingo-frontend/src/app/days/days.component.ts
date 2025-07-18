@@ -1,3 +1,4 @@
+// TypeScript + Template logic for showing all wrong answers at end
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -18,6 +19,7 @@ export class DaysComponent {
   answered = false;
   resultMessage = '';
   completedLessonsList: string[] = [];
+  wrongAnswersList: { question: string; selected: string; correct: string }[] = [];
 
   constructor(private router: Router) {}
 
@@ -29,7 +31,7 @@ export class DaysComponent {
           id: 'monday',
           title: 'Ponedjeljak',
           description: 'Ponedjeljak je prvi dan u tjednu.',
-          question: 'Kako se kaže "Monday" na njemačkom?',
+          question: 'Kako se kaže "Ponedjeljak" na njemačkom?',
           correct: 'Montag',
           answers: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag'],
           funFact: 'Ponedjeljak na njemačkom znači "Montag", što dolazi od Mjeseca (Moon Day).'
@@ -38,7 +40,7 @@ export class DaysComponent {
           id: 'tuesday',
           title: 'Utorak',
           description: 'Utorak je drugi dan u tjednu.',
-          question: 'Kako se kaže "Tuesday" na njemačkom?',
+          question: 'Kako se kaže "Utorak" na njemačkom?',
           correct: 'Dienstag',
           answers: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag'],
           funFact: 'Dienstag potječe od boga rata Tiw, slično engleskom "Tuesday".'
@@ -47,7 +49,7 @@ export class DaysComponent {
           id: 'wednesday',
           title: 'Srijeda',
           description: 'Srijeda je sredina tjedna.',
-          question: 'Kako se kaže "Wednesday" na njemačkom?',
+          question: 'Kako se kaže "Srijeda" na njemačkom?',
           correct: 'Mittwoch',
           answers: ['Mittwoch', 'Freitag', 'Samstag', 'Sonntag'],
           funFact: 'Mittwoch znači "sredina tjedna".'
@@ -56,7 +58,7 @@ export class DaysComponent {
           id: 'thursday',
           title: 'Četvrtak',
           description: 'Četvrtak je četvrti dan u tjednu.',
-          question: 'Kako se kaže "Thursday" na njemačkom?',
+          question: 'Kako se kaže "Četvrtak" na njemačkom?',
           correct: 'Donnerstag',
           answers: ['Dienstag', 'Donnerstag', 'Freitag', 'Samstag'],
           funFact: 'Donnerstag znači "Dan groma", od boga groma Donara.'
@@ -65,7 +67,7 @@ export class DaysComponent {
           id: 'friday',
           title: 'Petak',
           description: 'Petak je peti dan u tjednu.',
-          question: 'Kako se kaže "Friday" na njemačkom?',
+          question: 'Kako se kaže "Petak" na njemačkom?',
           correct: 'Freitag',
           answers: ['Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
           funFact: 'Freitag dolazi od božice ljubavi Freje.'
@@ -74,7 +76,7 @@ export class DaysComponent {
           id: 'saturday',
           title: 'Subota',
           description: 'Subota je šesti dan u tjednu.',
-          question: 'Kako se kaže "Saturday" na njemačkom?',
+          question: 'Kako se kaže "Subota" na njemačkom?',
           correct: 'Samstag',
           answers: ['Samstag', 'Sonntag', 'Montag', 'Dienstag'],
           funFact: 'Samstag je njemačka verzija "Sabbath", dan odmora.'
@@ -83,7 +85,7 @@ export class DaysComponent {
           id: 'sunday',
           title: 'Nedjelja',
           description: 'Nedjelja je sedmi dan u tjednu.',
-          question: 'Kako se kaže "Sunday" na njemačkom?',
+          question: 'Kako se kaže "Nedjelja" na njemačkom?',
           correct: 'Sonntag',
           answers: ['Samstag', 'Sonntag', 'Freitag', 'Mittwoch'],
           funFact: 'Sonntag znači "dan sunca".'
@@ -92,8 +94,16 @@ export class DaysComponent {
     }
   ];
 
+  shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
   get currentLesson() {
-    return this.sections[this.currentSectionIndex].lessons[this.currentLessonIndex];
+    return this.sections[this.currentSectionIndex]?.lessons[this.currentLessonIndex];
   }
 
   get totalLessons(): number {
@@ -120,14 +130,26 @@ export class DaysComponent {
     this.showIntro = false;
     this.answered = false;
     this.resultMessage = '';
+
+    if (this.currentLesson) {
+      this.currentLesson.answers = this.shuffleArray([...this.currentLesson.answers]);
+    }
   }
 
   checkAnswer(selected: string) {
     this.answered = true;
     const correct = this.currentLesson.correct;
-    this.resultMessage = selected === correct
-      ? '✅ Bravo! Točan odgovor.'
-      : `❌ Netočno. Točan odgovor je: ${correct}`;
+
+    if (selected === correct) {
+      this.resultMessage = '✅ Bravo! Točan odgovor.';
+    } else {
+      this.resultMessage = `❌ Netočno. Tačan odgovor je: ${correct}`;
+      this.wrongAnswersList.push({
+        question: this.currentLesson.question,
+        selected,
+        correct
+      });
+    }
   }
 
   nextLesson() {
@@ -153,7 +175,7 @@ export class DaysComponent {
     }
 
     if (this.progress === 100) {
-      localStorage.setItem('daysProgress', 'completed');
+      localStorage.setItem('', 'completed');
     }
   }
 
@@ -161,12 +183,13 @@ export class DaysComponent {
     this.currentSectionIndex = 0;
     this.currentLessonIndex = 0;
     this.completedLessonsList = [];
+    this.wrongAnswersList = [];
     this.showIntro = false;
     this.showQuiz = false;
     this.answered = false;
     this.resultMessage = '';
     this.showWelcome = true;
-    localStorage.removeItem('daysProgress');
+    localStorage.removeItem('');
   }
 
   goToLection() {

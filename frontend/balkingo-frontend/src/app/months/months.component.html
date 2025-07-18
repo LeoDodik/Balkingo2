@@ -10,6 +10,7 @@
   <div *ngIf="!showWelcome">
     <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
 
+    <!-- Progress -->
     <div class="progress-container">
       <div class="progress-bar">
         <div class="progress-fill" [style.width.%]="progress"></div>
@@ -67,7 +68,6 @@
     <div *ngIf="showQuiz && currentLesson?.question && currentLesson.answers?.length" class="quiz active">
       <div class="question">{{ currentLesson.question }}</div>
 
-      <!-- Fun Fact -->
       <div class="fun-fact" *ngIf="currentLesson.funFact">
         <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
       </div>
@@ -91,7 +91,20 @@
     <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
       <h2>Čestitamo! Završili ste sve lekcije.</h2>
       <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
-      <div style="display: flex; gap: 10px;">
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
         <button class="start-btn" (click)="restart()">Počni ispočetka</button>
         <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
       </div>

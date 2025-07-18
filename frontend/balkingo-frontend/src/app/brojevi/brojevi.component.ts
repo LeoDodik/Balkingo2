@@ -1,3 +1,4 @@
+// TypeScript + Template logic for showing all wrong answers at end
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './brojevi.component.html',
   styleUrls: ['./brojevi.component.css']
 })
-export class BrojeviComponent {
+export class  BrojeviComponent {
   currentSectionIndex = 0;
   currentLessonIndex = 0;
   showIntro = false;
@@ -18,6 +19,7 @@ export class BrojeviComponent {
   answered = false;
   resultMessage = '';
   completedLessonsList: string[] = [];
+  wrongAnswersList: { question: string; selected: string; correct: string }[] = [];
 
   constructor(private router: Router) {}
 
@@ -77,19 +79,36 @@ export class BrojeviComponent {
     this.showIntro = false;
     this.answered = false;
     this.resultMessage = '';
-  }
 
-  goToNumbers(){
-    this.router.navigate(['/brojevi']);
+    if (this.currentLesson) {
+      this.currentLesson.answers = this.shuffleArray([...this.currentLesson.answers]);
+    }
   }
 
   checkAnswer(selected: string) {
     this.answered = true;
     const correct = this.currentLesson.correct;
-    this.resultMessage = selected === correct
-      ? '✅ Bravo! Točan odgovor.'
-      : `❌ Netočno. Točan odgovor je: ${correct}`;
+
+    if (selected === correct) {
+      this.resultMessage = '✅ Bravo! Točan odgovor.';
+    } else {
+      this.resultMessage = `❌ Netočno. Tačan odgovor je: ${correct}`;
+      this.wrongAnswersList.push({
+        question: this.currentLesson.question,
+        selected,
+        correct
+      });
+    }
   }
+
+  shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 
   nextLesson() {
     const lessonId = this.currentLesson.id;
@@ -114,7 +133,7 @@ export class BrojeviComponent {
     }
 
     if (this.progress === 100) {
-      localStorage.setItem('brojeviProgress', 'completed');
+      localStorage.setItem('', 'completed');
     }
   }
 
@@ -122,12 +141,13 @@ export class BrojeviComponent {
     this.currentSectionIndex = 0;
     this.currentLessonIndex = 0;
     this.completedLessonsList = [];
+    this.wrongAnswersList = [];
     this.showIntro = false;
     this.showQuiz = false;
     this.answered = false;
     this.resultMessage = '';
     this.showWelcome = true;
-    localStorage.removeItem('brojeviProgress');
+    localStorage.removeItem('');
   }
 
   goToLection() {

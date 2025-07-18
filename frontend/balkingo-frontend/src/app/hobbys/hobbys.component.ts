@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+// TypeScript + Template logic for showing all wrong answers at end
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-',
+  selector: 'app-hobbys',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './hobbys.component.html',
   styleUrls: ['./hobbys.component.css']
 })
-export class HobbysComponent {
+export class HobbysComponent  {
   currentSectionIndex = 0;
   currentLessonIndex = 0;
   showIntro = false;
@@ -18,6 +19,7 @@ export class HobbysComponent {
   answered = false;
   resultMessage = '';
   completedLessonsList: string[] = [];
+  wrongAnswersList: { question: string; selected: string; correct: string }[] = [];
 
   constructor(private router: Router) {}
 
@@ -74,8 +76,7 @@ export class HobbysComponent {
     }
   ];
 
-
-get currentLesson() {
+  get currentLesson() {
     return this.sections[this.currentSectionIndex]?.lessons[this.currentLessonIndex];
   }
 
@@ -103,14 +104,36 @@ get currentLesson() {
     this.showIntro = false;
     this.answered = false;
     this.resultMessage = '';
+
+
+    if (this.currentLesson) {
+      this.currentLesson.answers = this.shuffleArray([...this.currentLesson.answers]);
+    }
   }
+
+  shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 
   checkAnswer(selected: string) {
     this.answered = true;
     const correct = this.currentLesson.correct;
-    this.resultMessage = selected === correct
-      ? '✅ Bravo! Točan odgovor.'
-      : `❌ Netočno. Tačan odgovor je: ${correct}`;
+
+    if (selected === correct) {
+      this.resultMessage = '✅ Bravo! Točan odgovor.';
+    } else {
+      this.resultMessage = `❌ Netočno. Tačan odgovor je: ${correct}`;
+      this.wrongAnswersList.push({
+        question: this.currentLesson.question,
+        selected,
+        correct
+      });
+    }
   }
 
   nextLesson() {
@@ -144,6 +167,7 @@ get currentLesson() {
     this.currentSectionIndex = 0;
     this.currentLessonIndex = 0;
     this.completedLessonsList = [];
+    this.wrongAnswersList = [];
     this.showIntro = false;
     this.showQuiz = false;
     this.answered = false;

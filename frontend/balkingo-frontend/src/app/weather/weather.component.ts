@@ -1,4 +1,4 @@
-// weather.component.ts - Lection: Vrijeme
+// TypeScript + Template logic for showing all wrong answers at end
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -19,6 +19,7 @@ export class WeatherComponent {
   answered = false;
   resultMessage = '';
   completedLessonsList: string[] = [];
+  wrongAnswersList: { question: string; selected: string; correct: string }[] = [];
 
   constructor(private router: Router) {}
 
@@ -103,14 +104,36 @@ export class WeatherComponent {
     this.showIntro = false;
     this.answered = false;
     this.resultMessage = '';
+
+
+    if (this.currentLesson) {
+      this.currentLesson.answers = this.shuffleArray([...this.currentLesson.answers]);
+    }
   }
+
+  shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 
   checkAnswer(selected: string) {
     this.answered = true;
     const correct = this.currentLesson.correct;
-    this.resultMessage = selected === correct
-      ? '✅ Bravo! Točan odgovor.'
-      : `❌ Netočno. Tačan odgovor je: ${correct}`;
+
+    if (selected === correct) {
+      this.resultMessage = '✅ Bravo! Točan odgovor.';
+    } else {
+      this.resultMessage = `❌ Netočno. Tačan odgovor je: ${correct}`;
+      this.wrongAnswersList.push({
+        question: this.currentLesson.question,
+        selected,
+        correct
+      });
+    }
   }
 
   nextLesson() {
@@ -136,7 +159,7 @@ export class WeatherComponent {
     }
 
     if (this.progress === 100) {
-      localStorage.setItem('weatherProgress', 'completed');
+      localStorage.setItem('', 'completed');
     }
   }
 
@@ -144,16 +167,17 @@ export class WeatherComponent {
     this.currentSectionIndex = 0;
     this.currentLessonIndex = 0;
     this.completedLessonsList = [];
+    this.wrongAnswersList = [];
     this.showIntro = false;
     this.showQuiz = false;
     this.answered = false;
     this.resultMessage = '';
     this.showWelcome = true;
-    localStorage.removeItem('weatherProgress');
+    localStorage.removeItem('');
   }
 
   goToLection() {
-    const lectionName = 'klima';
+    const lectionName = 'vrijeme';
     const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
 
     if (!completedLections.includes(lectionName)) {

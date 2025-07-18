@@ -3,7 +3,7 @@
   <div *ngIf="showWelcome" class="welcome active">
     <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
     <h2>Dobrodošli!</h2>
-    <p>Pripremite se za učenje klime na njemačkom jeziku.</p>
+    <p>Pripremite se za učenje hrane i pića na njemačkom jeziku.</p>
     <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
   </div>
 
@@ -12,7 +12,7 @@
       Balkingo <i class="fas fa-crown"></i>
     </div>
 
-    <!-- Progress bar -->
+    <!-- Progress -->
     <div class="progress-container">
       <div class="progress-bar">
         <div class="progress-fill" [style.width.%]="progress"></div>
@@ -42,8 +42,7 @@
         (click)="checkAnswer(ans)"
         [class.disabled]="answered"
         [class.correct]="answered && ans === currentLesson.correct"
-        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
-      >
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans">
         {{ ans }}
       </div>
 
@@ -53,7 +52,7 @@
       </div>
     </div>
 
-    <!-- COMPLETION -->
+    <!-- ✅ SINGLE COMPLETION BLOCK -->
     <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
       <h2>Čestitamo! Završili ste sve lekcije.</h2>
       <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>

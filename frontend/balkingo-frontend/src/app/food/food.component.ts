@@ -4,13 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-time',
+  selector: 'app-food',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './time.component.html',
-  styleUrls: ['./time.component.css']
+  templateUrl: './food.component.html',
+  styleUrls: ['./food.component.css']
 })
-export class TimeComponent  {
+export class  FoodComponent {
   currentSectionIndex = 0;
   currentLessonIndex = 0;
   showIntro = false;
@@ -25,52 +25,52 @@ export class TimeComponent  {
 
   sections = [
     {
-      name: 'Sekcija 1',
+      name: 'HRANA I PIĆE',
       lessons: [
         {
-          id: 'koliko-je-sati',
-          title: 'Wie spät ist es?',
-          description: 'Osnovno pitanje za vrijeme je “Wie spät ist es?” što znači “Koliko je sati?”.',
-          question: 'Što znači “Wie spät ist es?”',
-          correct: 'Koliko je sati?',
-          answers: ['Koliko imaš godina?', 'Gdje si?', 'Koliko je sati?', 'Koji je dan?'],
-          funFact: 'U njemačkom jeziku često se koristi "Wie spät ist es?" kada želimo pitati koliko je sati – doslovno "Koliko je kasno?".'
+          id: 'brot',
+          title: 'Brot',
+          description: 'Brot znači kruh. / Brot ist ein Grundnahrungsmittel aus Mehl.',
+          question: 'Kako se kaže "kruh" na njemačkom?',
+          correct: 'Brot',
+          answers: ['Brot', 'Milch', 'Käse', 'Wasser'],
+          funFact: 'Njemačka ima više od 300 vrsta hljeba — pravi raj za ljubitelje kruha!'
         },
         {
-          id: 'viertel-nach',
-          title: 'Viertel nach – Četvrt nakon',
-          description: '“Viertel nach drei” znači “četvrt nakon tri” ili 3:15.',
-          question: 'Što znači “Viertel nach drei”?',
-          correct: '3:15',
-          answers: ['3:45', '2:45', '3:15', '2:15'],
-          funFact: 'U njemačkom se koristi izraz "Viertel nach" (četvrt nakon), dok u hrvatskom češće kažemo "petnaest nakon".'
+          id: 'kaese',
+          title: 'Käse',
+          description: 'Käse znači sir. / Käse wird aus Milch hergestellt.',
+          question: 'Kako se kaže "sir" na njemačkom?',
+          correct: 'Käse',
+          answers: ['Käse', 'Wurst', 'Eier', 'Apfel'],
+          funFact: 'U Njemačkoj postoji više od 600 vrsta sira!'
         },
         {
-          id: 'viertel-vor',
-          title: 'Viertel vor – Četvrt do',
-          description: '“Viertel vor vier” znači “četvrt do četiri” ili 3:45.',
-          question: 'Što znači “Viertel vor vier”?',
-          correct: '3:45',
-          answers: ['4:15', '3:45', '3:15', '4:45'],
-          funFact: 'Ovdje "Viertel vor" znači doslovno "četvrt prije". Dakle, 15 minuta prije punog sata.'
+          id: 'wasser',
+          title: 'Wasser',
+          description: 'Wasser znači voda. / Wasser ist lebensnotwendig.',
+          question: 'Kako se kaže "voda" na njemačkom?',
+          correct: 'Wasser',
+          answers: ['Wasser', 'Milch', 'Saft', 'Bier'],
+          funFact: 'U Njemačkoj se često pije gazirana voda (Sprudelwasser).'
         },
         {
-          id: 'halb',
-          title: 'Halb – Pola sata prije',
-          description: '“Halb vier” znači “pola četiri”, što zapravo znači 3:30.',
-          question: 'Što znači “Halb vier”?',
-          correct: '3:30',
-          answers: ['3:00', '3:30', '4:30', '4:00'],
-          funFact: 'Za razliku od hrvatskog gdje kažemo "pola četiri" i mislimo 3:30, u njemačkom to isto znači "pol sata do četiri".'
+          id: 'apfel',
+          title: 'Apfel',
+          description: 'Apfel znači jabuka. / Der Apfel ist eine beliebte Frucht.',
+          question: 'Kako se kaže "jabuka" na njemačkom?',
+          correct: 'Apfel',
+          answers: ['Apfel', 'Birne', 'Traube', 'Orange'],
+          funFact: 'Njemačka je jedna od najvećih proizvođača jabuka u Evropi.'
         },
         {
-          id: 'točan-sat',
-          title: 'Es ist drei Uhr',
-          description: '“Es ist drei Uhr” znači “Tri je sata” ili 3:00.',
-          question: 'Što znači “Es ist drei Uhr”?',
-          correct: '3:00',
-          answers: ['3:00', '4:00', '2:00', '3:30'],
-          funFact: 'Dodavanjem “Uhr” nakon broja pokazujemo da se radi o točnom satu. "Drei Uhr" = 3:00.'
+          id: 'saft',
+          title: 'Saft',
+          description: 'Saft znači sok. / Saft ist ein Getränk aus Obst.',
+          question: 'Kako se kaže "sok" na njemačkom?',
+          correct: 'Saft',
+          answers: ['Wasser', 'Saft', 'Käse', 'Brot'],
+          funFact: 'Najpopularniji sok u Njemačkoj je Apfelsaft – sok od jabuke.'
         }
       ]
     }
@@ -78,6 +78,14 @@ export class TimeComponent  {
 
   get currentLesson() {
     return this.sections[this.currentSectionIndex]?.lessons[this.currentLessonIndex];
+  }
+
+  shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   get totalLessons(): number {
@@ -105,20 +113,10 @@ export class TimeComponent  {
     this.answered = false;
     this.resultMessage = '';
 
-
     if (this.currentLesson) {
       this.currentLesson.answers = this.shuffleArray([...this.currentLesson.answers]);
     }
   }
-
-  shuffleArray<T>(array: T[]): T[] {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
 
   checkAnswer(selected: string) {
     this.answered = true;
@@ -177,7 +175,7 @@ export class TimeComponent  {
   }
 
   goToLection() {
-    const lectionName = 'vrijeme';
+    const lectionName = 'hrana/piće';
     const completedLections = JSON.parse(localStorage.getItem('completedLections') || '[]');
 
     if (!completedLections.includes(lectionName)) {

@@ -12,6 +12,7 @@
       Balkingo <i class="fas fa-crown"></i>
     </div>
 
+    <!-- Progress bar -->
     <div class="progress-container">
       <div class="progress-bar">
         <div class="progress-fill" [style.width.%]="progress"></div>
@@ -35,11 +36,14 @@
         <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
       </div>
 
-      <div class="answer" *ngFor="let ans of currentLesson.answers"
-           (click)="checkAnswer(ans)"
-           [class.disabled]="answered"
-           [class.correct]="answered && ans === currentLesson.correct"
-           [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans">
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
         {{ ans }}
       </div>
 
@@ -52,8 +56,21 @@
     <!-- COMPLETION -->
     <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
       <h2>Čestitamo! Završili ste sve lekcije.</h2>
-      <p>Odličan posao! Sada znaš kako reći koliko je sati na njemačkom.</p>
-      <div style="display: flex; gap: 10px;">
+      <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
         <button class="start-btn" (click)="restart()">Počni ispočetka</button>
         <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
       </div>
