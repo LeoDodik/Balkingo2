@@ -79,6 +79,18 @@ export const routes: Routes = [
   {
     path: 'colors',
     loadComponent: () => import('./colors/colors.component').then(m => m.ColorsComponent)
+  },
+  {
+    path: 'furniture',
+    loadComponent: () => import('./furniture/furniture.component').then(m => m.FurnitureComponent)
+  },
+  {
+    path: 'animals',
+    loadComponent: () => import('./animals/animals.component').then(m => m.AnimalsComponent)
+  },
+  {
+    path: 'body',
+    loadComponent: () => import('./body/body.component').then(m => m.BodyComponent)
   }
 
 ];

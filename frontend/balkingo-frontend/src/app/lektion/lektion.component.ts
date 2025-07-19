@@ -43,6 +43,9 @@ export class LektionComponent implements OnInit {
   goToClothes(){this.router.navigate(['/clothes']); }
   goToFood(){this.router.navigate(['/food']); }
   goToColors(){this.router.navigate(['/colors']); }
+  goToBody(){this.router.navigate(['/body']); }
+  goToAnimals(){this.router.navigate(['/animals']); }
+  goToFurniture(){this.router.navigate(['/furniture']); }
   goToProgress() { this.router.navigate(['/progress']); }
   goToFamily() { this.router.navigate(['/family']); }
   editProfile() { this.router.navigate(['/edit-profile']); }
