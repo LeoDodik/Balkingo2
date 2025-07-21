@@ -44,7 +44,8 @@ export class ProgressComponent implements OnInit {
     { name: 'familija', level: 'srednji' },
     { name: 'odjeća/obuća', level: 'srednji' },
     { name: 'hrana/piće', level: 'srednji' },
-
+    { name: 'osnovna gramatika', level: 'srednji' },
+    { name: 'modalni glagoli', level: 'srednji' },
   ];
 
   constructor(private router: Router, private http: HttpClient) {}

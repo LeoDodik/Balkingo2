@@ -36,6 +36,8 @@ export class LektionComponent implements OnInit {
   }
 
   // Navigation methods
+  goToBasicGrammar() { this.router.navigate(['basic-grammar']); }
+  goToModalVerbs() { this.router.navigate(['modal-verbs']); }
   goToUpoznavanje() { this.router.navigate(['/lektion/upoznavanje']); }
   goToLection() { this.router.navigate(['/lektion']); }
   goToWeather() { this.router.navigate(['/weather']); }

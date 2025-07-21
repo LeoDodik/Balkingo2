@@ -1,0 +1,163 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli!</h2>
+    <p>Pripremite se za učenje osnovne gramatike na njemačkom jeziku.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">
+      Balkingo <i class="fas fa-crown"></i>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}: {{ currentLesson.title }}</h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- EXTRA GRAMMAR TABLES -->
+
+      <!-- Lični zamjenici -->
+      <div *ngIf="currentLesson.id === 'licni-zamjenici'" class="grammar-table">
+        <h3>Lični zamjenici</h3>
+        <table>
+          <thead>
+          <tr><th>Zamjenica</th><th>Primjer</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>ich</td><td>Ich lerne Deutsch.</td></tr>
+          <tr><td>du</td><td>Du bist freundlich.</td></tr>
+          <tr><td>er</td><td>Er spielt Fußball.</td></tr>
+          <tr><td>sie</td><td>Sie liest ein Buch.</td></tr>
+          <tr><td>es</td><td>Es ist kalt.</td></tr>
+          <tr><td>wir</td><td>Wir gehen spazieren.</td></tr>
+          <tr><td>ihr</td><td>Ihr seid laut.</td></tr>
+          <tr><td>sie</td><td>Sie tanzen gern.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Red riječi -->
+      <div *ngIf="currentLesson.id === 'red-rijeci'" class="grammar-table">
+        <h3>Red riječi</h3>
+        <p>Tipičan red riječi u njemačkom: subjekt + glagol + ostatak.</p>
+        <p><em>Primjer: Ich spiele Fußball.</em></p>
+      </div>
+
+      <!-- Konjugacija glagola "sein" -->
+      <div *ngIf="currentLesson.id === 'sein'" class="grammar-table">
+        <h3>Konjugacija glagola "sein" (biti)</h3>
+        <table>
+          <thead>
+          <tr><th>Zamjenica</th><th>sein</th><th>Primjer</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>ich</td><td>bin</td><td>Ich bin müde.</td></tr>
+          <tr><td>du</td><td>bist</td><td>Du bist nett.</td></tr>
+          <tr><td>er/sie/es</td><td>ist</td><td>Sie ist klug.</td></tr>
+          <tr><td>wir</td><td>sind</td><td>Wir sind zuhause.</td></tr>
+          <tr><td>ihr</td><td>seid</td><td>Ihr seid laut.</td></tr>
+          <tr><td>sie/Sie</td><td>sind</td><td>Sie sind freundlich.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Konjugacija glagola "haben" -->
+      <div *ngIf="currentLesson.id === 'haben'" class="grammar-table">
+        <h3>Konjugacija glagola "haben" (imati)</h3>
+        <table>
+          <thead>
+          <tr><th>Zamjenica</th><th>haben</th><th>Primjer</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>ich</td><td>habe</td><td>Ich habe ein Buch.</td></tr>
+          <tr><td>du</td><td>hast</td><td>Du hast einen Hund.</td></tr>
+          <tr><td>er/sie/es</td><td>hat</td><td>Er hat ein Auto.</td></tr>
+          <tr><td>wir</td><td>haben</td><td>Wir haben Zeit.</td></tr>
+          <tr><td>ihr</td><td>habt</td><td>Ihr habt eine Katze.</td></tr>
+          <tr><td>sie/Sie</td><td>haben</td><td>Sie haben Fragen.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Rodovi i članovi -->
+      <div *ngIf="currentLesson.id === 'artikel'" class="grammar-table">
+        <h3>Rodovi i članovi: der / die / das</h3>
+        <table>
+          <thead>
+          <tr><th>Njemački</th><th>Hrvatski</th><th>Član</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>der Tisch</td><td>stol</td><td>der</td></tr>
+          <tr><td>die Lampe</td><td>lampa</td><td>die</td></tr>
+          <tr><td>das Fenster</td><td>prozor</td><td>das</td></tr>
+          <tr><td>die Frau</td><td>žena</td><td>die</td></tr>
+          <tr><td>das Kind</td><td>dijete</td><td>das</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GO TO QUIZ -->
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste sve lekcije.</h2>
+      <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

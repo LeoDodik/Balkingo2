@@ -91,6 +91,14 @@ export const routes: Routes = [
   {
     path: 'body',
     loadComponent: () => import('./body/body.component').then(m => m.BodyComponent)
+  },
+  {
+    path: 'basic-grammar',
+    loadComponent: () => import('./basic-grammar/basic-grammar.component').then(m => m.BasicGrammarComponent)
+  },
+  {
+    path: 'modal-verbs',
+    loadComponent: () => import('./modal-verbs/modal-verbs.component').then(m => m.ModalVerbsComponent)
   }
 
 ];
