@@ -1,0 +1,125 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli!</h2>
+    <p>Pripremite se za učenje prijedloga na njemačkom jeziku.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">
+      Balkingo <i class="fas fa-crown"></i>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}: {{ currentLesson.title }}</h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- EXTRA GRAMMAR TABLES -->
+      <div *ngIf="currentLesson.id === 'lokalni-prijedlozi'" class="grammar-table">
+        <h3>Prijedlozi mjesta (lokalni prijedlozi)</h3>
+        <table>
+          <thead>
+          <tr><th>Prijedlog</th><th>Značenje</th><th>Primjer</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>auf</td><td>na (vodoravno)</td><td>Das Buch liegt auf dem Tisch.</td></tr>
+          <tr><td>unter</td><td>ispod</td><td>Die Katze ist unter dem Bett.</td></tr>
+          <tr><td>in</td><td>u</td><td>Ich bin in der Schule.</td></tr>
+          <tr><td>neben</td><td>pored</td><td>Der Stuhl steht neben dem Tisch.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="currentLesson.id === 'temporalni-prijedlozi'" class="grammar-table">
+        <h3>Prijedlozi vremena (temporalni prijedlozi)</h3>
+        <table>
+          <thead>
+          <tr><th>Prijedlog</th><th>Značenje</th><th>Primjer</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>um</td><td>u (za sate)</td><td>Der Film beginnt um 20 Uhr.</td></tr>
+          <tr><td>am</td><td>na (za dane)</td><td>Ich arbeite am Montag.</td></tr>
+          <tr><td>im</td><td>u (za mjesece/godine)</td><td>Wir fahren im Juli nach Berlin.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="currentLesson.id === 'prijedlozi-kretanja'" class="grammar-table">
+        <h3>Prijedlozi kretanja (smjera)</h3>
+        <table>
+          <thead>
+          <tr><th>Prijedlog</th><th>Značenje</th><th>Primjer</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>nach</td><td>prema (gradovi, zemlje)</td><td>Ich fahre nach Deutschland.</td></tr>
+          <tr><td>zu</td><td>prema (osobe/mjesta)</td><td>Ich gehe zu meiner Freundin.</td></tr>
+          <tr><td>aus</td><td>iz</td><td>Ich komme aus Spanien.</td></tr>
+          <tr><td>in</td><td>u (ulazak)</td><td>Ich gehe in die Schule.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste sve lekcije.</h2>
+      <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

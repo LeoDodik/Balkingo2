@@ -37,6 +37,10 @@ export class LektionComponent implements OnInit {
 
   // Navigation methods
   goToBasicGrammar() { this.router.navigate(['basic-grammar']); }
+  goToRegularVerbs() { this.router.navigate(['regular-verbs']); }
+  goToIrregularVerbs() { this.router.navigate(['irregular-verbs']); }
+  goToZamjenice() { this.router.navigate(['zamjenice']); }
+  goToPrepositions() { this.router.navigate(['prepositions']); }
   goToModalVerbs() { this.router.navigate(['modal-verbs']); }
   goToUpoznavanje() { this.router.navigate(['/lektion/upoznavanje']); }
   goToLection() { this.router.navigate(['/lektion']); }

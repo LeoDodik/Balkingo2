@@ -1,0 +1,94 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli!</h2>
+    <p>Pripremite se za učenje nepravilnih glagola na njemačkom jeziku.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}: {{ currentLesson.title }}</h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- Grammar Table for irregulars -->
+      <div *ngIf="['sein', 'haben', 'gehen'].includes(currentLesson.id)" class="grammar-table">
+        <h3>Konjugacija glagola: {{ currentLesson.title.split(':')[1] }}</h3>
+        <table>
+          <thead><tr><th>Osoba</th><th>Oblik</th></tr></thead>
+          <tbody>
+          <tr *ngFor="let row of {
+              sein: [['ich', 'bin'], ['du', 'bist'], ['er/sie/es', 'ist'], ['wir', 'sind'], ['ihr', 'seid'], ['sie/Sie', 'sind']],
+              haben: [['ich', 'habe'], ['du', 'hast'], ['er/sie/es', 'hat'], ['wir', 'haben'], ['ihr', 'habt'], ['sie/Sie', 'haben']],
+              gehen: [['ich', 'gehe'], ['du', 'gehst'], ['er/sie/es', 'geht'], ['wir', 'gehen'], ['ihr', 'geht'], ['sie/Sie', 'gehen']]
+            }[currentLesson.id]">
+            <td>{{ row[0] }}</td><td>{{ row[1] }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 10px;">🔴 Ova konjugacija je nepravilna – mora se učiti napamet!</p>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste sve lekcije.</h2>
+      <p>Sjajan posao! Nastavite vježbati kako biste poboljšali svoj njemački.</p>
+
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-summary">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

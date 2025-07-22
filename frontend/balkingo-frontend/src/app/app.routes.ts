@@ -99,6 +99,23 @@ export const routes: Routes = [
   {
     path: 'modal-verbs',
     loadComponent: () => import('./modal-verbs/modal-verbs.component').then(m => m.ModalVerbsComponent)
-  }
+  },
+  {
+    path: 'prepositions',
+    loadComponent: () => import('./prepositions/prepositions.component').then(m => m.PrepositionsComponent)
+  },
+  {
+    path: 'regular-verbs',
+    loadComponent: () => import('./regular-verbs/regular-verbs.component').then(m => m.RegularVerbsComponent)
+  },
+  {
+    path: 'irregular-verbs',
+    loadComponent: () => import('./irregular-verbs/irregular-verbs.component').then(m => m.IrregularVerbsComponent)
+  },
+  {
+    path: 'zamjenice',
+    loadComponent: () => import('./zamjenice/zamjenice.component').then(m => m.ZamjeniceComponent)
+  },
+
 
 ];
