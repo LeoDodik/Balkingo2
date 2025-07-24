@@ -1,0 +1,183 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli u lekciju Futur I!</h2>
+    <p>
+      Naučit ćeš kako govoriti o budućim radnjama i kako koristiti Futur I za
+      pretpostavke.
+    </p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>
+        Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}:
+        {{ currentLesson.title }}
+      </h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- UVOD: Što je Futur I -->
+      <div *ngIf="currentLesson.id === 'futur-uvod'" class="grammar-table">
+        <h3>Gdje se koristi Futur I?</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Namjena</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Buduća radnja</td>
+            <td>Ich werde morgen arbeiten.</td>
+          </tr>
+          <tr>
+            <td>Pretpostavka o sadašnjosti</td>
+            <td>Er wird jetzt zu Hause sein.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FORMA -->
+      <div *ngIf="currentLesson.id === 'futur-forma'" class="grammar-table">
+        <h3>Kako formirati Futur I?</h3>
+        <p>
+          Formula:
+          <strong>werden (konjugirano) + infinitiv na kraju rečenice</strong>
+        </p>
+        <table>
+          <thead>
+          <tr>
+            <th>Osoba</th>
+            <th>„werden“</th>
+            <th>Infinitiv</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>ich</td>
+            <td>werde</td>
+            <td>arbeiten</td>
+            <td>Ich werde arbeiten.</td>
+          </tr>
+          <tr>
+            <td>du</td>
+            <td>wirst</td>
+            <td>lernen</td>
+            <td>Du wirst Deutsch lernen.</td>
+          </tr>
+          <tr>
+            <td>er/sie/es</td>
+            <td>wird</td>
+            <td>kommen</td>
+            <td>Er wird später kommen.</td>
+          </tr>
+          <tr>
+            <td>wir</td>
+            <td>werden</td>
+            <td>reisen</td>
+            <td>Wir werden nach Berlin reisen.</td>
+          </tr>
+          <tr>
+            <td>ihr</td>
+            <td>werdet</td>
+            <td>spielen</td>
+            <td>Ihr werdet Fußball spielen.</td>
+          </tr>
+          <tr>
+            <td>sie/Sie</td>
+            <td>werden</td>
+            <td>studieren</td>
+            <td>Sie werden Medizin studieren.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PRETPOSTAVKA -->
+      <div
+        *ngIf="currentLesson.id === 'futur-pretpostavka'"
+        class="grammar-table"
+      >
+        <h3>Futur I kao pretpostavka</h3>
+        <p>
+          Često koristiš Futur I da izraziš nagađanje ili procjenu o sadašnjosti
+          ili budućnosti:
+        </p>
+        <ul>
+          <li>Er wird jetzt schlafen. (Pretpostavljam da sada spava.)</li>
+          <li>Sie werden bald ankommen. (Vjerovatno će uskoro stići.)</li>
+        </ul>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste lekciju Futur I.</h2>
+      <p>Sljedeće: Futur II ili Konjunktiv II za naprednije izražavanje.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span
+            ><br />
+            <span style="color: lightgreen;"
+            ><strong>Točan odgovor:</strong> {{ wrong.correct }}</span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

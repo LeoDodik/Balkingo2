@@ -40,6 +40,11 @@ export class LektionComponent implements OnInit {
   goToRegularVerbs() { this.router.navigate(['regular-verbs']); }
   goToIrregularVerbs() { this.router.navigate(['irregular-verbs']); }
   goToZamjenice() { this.router.navigate(['zamjenice']); }
+  goToPrateritum() { this.router.navigate(['prateritum']); }
+  goToPlusquamperfekt(){this.router.navigate(['plusquamperfekt']); }
+  goToFutur1(){this.router.navigate(['futur1']); }
+  goToFutur2(){this.router.navigate(['futur2']); }
+  goToProslost() { this.router.navigate(['proslost']); }
   goToPrepositions() { this.router.navigate(['prepositions']); }
   goToModalVerbs() { this.router.navigate(['modal-verbs']); }
   goToUpoznavanje() { this.router.navigate(['/lektion/upoznavanje']); }

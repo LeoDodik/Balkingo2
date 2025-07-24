@@ -1,0 +1,204 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli u napredni nivo!</h2>
+    <p>U ovoj lekciji učite PROŠLOST (PRÄTERITUM) – kako se gradi i kada se koristi.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">
+      Balkingo <i class="fas fa-crown"></i>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>
+        Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}:
+        {{ currentLesson.title }}
+      </h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- TABLES / EXPLANATIONS -->
+      <!-- UVOD: razlika Perfekt vs. Präteritum -->
+      <div *ngIf="currentLesson.id === 'prae-uvod'" class="grammar-table">
+        <h3>Perfekt vs. Präteritum – kada šta koristiti?</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Vrijeme</th>
+            <th>Govor</th>
+            <th>Pisanje</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Perfekt</td>
+            <td>✔️ (najčešće)</td>
+            <td>✔️</td>
+            <td>Ich habe gegessen.</td>
+          </tr>
+          <tr>
+            <td>Präteritum</td>
+            <td>⚠️ (osim: sein, haben, modalni)</td>
+            <td>✔️ (najčešće)</td>
+            <td>Ich aß. / Ich war müde.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PRAVILNI GLAGOLI: nastavci -->
+      <div *ngIf="currentLesson.id === 'prae-pravilni'" class="grammar-table">
+        <h3>Präteritum – pravilni glagoli</h3>
+        <p>Nastavci za pravilne glagole:</p>
+        <table>
+          <thead>
+          <tr>
+            <th>Osoba</th>
+            <th>Nastavak</th>
+            <th>„machen“</th>
+            <th>„arbeiten“</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>ich</td><td>-te</td><td>machte</td><td>arbeitete</td></tr>
+          <tr><td>du</td><td>-test</td><td>machtest</td><td>arbeitetest</td></tr>
+          <tr><td>er/sie/es</td><td>-te</td><td>machte</td><td>arbeitete</td></tr>
+          <tr><td>wir</td><td>-ten</td><td>machten</td><td>arbeiteten</td></tr>
+          <tr><td>ihr</td><td>-tet</td><td>machtet</td><td>arbeitetet</td></tr>
+          <tr><td>sie/Sie</td><td>-ten</td><td>machten</td><td>arbeiteten</td></tr>
+          </tbody>
+        </table>
+        <p>🟢 Pravilo: korijen + <strong>-te, -test, -te, -ten, -tet, -ten</strong>.</p>
+      </div>
+
+      <!-- NEPRAVILNI GLAGOLI -->
+      <div *ngIf="currentLesson.id === 'prae-nepravilni'" class="grammar-table">
+        <h3>Präteritum – nepravilni glagoli</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Infinitiv</th>
+            <th>ich</th>
+            <th>du</th>
+            <th>er/sie/es</th>
+            <th>wir</th>
+            <th>ihr</th>
+            <th>sie/Sie</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>sein</td>
+            <td>war</td>
+            <td>warst</td>
+            <td>war</td>
+            <td>waren</td>
+            <td>wart</td>
+            <td>waren</td>
+          </tr>
+          <tr>
+            <td>haben</td>
+            <td>hatte</td>
+            <td>hattest</td>
+            <td>hatte</td>
+            <td>hatten</td>
+            <td>hattet</td>
+            <td>hatten</td>
+          </tr>
+          <tr>
+            <td>gehen</td>
+            <td>ging</td>
+            <td>gingst</td>
+            <td>ging</td>
+            <td>gingen</td>
+            <td>gingt</td>
+            <td>gingen</td>
+          </tr>
+          <tr>
+            <td>kommen</td>
+            <td>kam</td>
+            <td>kamst</td>
+            <td>kam</td>
+            <td>kamen</td>
+            <td>kamt</td>
+            <td>kamen</td>
+          </tr>
+          <tr>
+            <td>sehen</td>
+            <td>sah</td>
+            <td>sahst</td>
+            <td>sah</td>
+            <td>sahen</td>
+            <td>(saht)</td>
+            <td>sahen</td>
+          </tr>
+          </tbody>
+        </table>
+        <p>⚠️ Ove oblike moraš naučiti napamet – ne slijede pravilan obrazac.</p>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste lekciju Präteritum.</h2>
+      <p>Sljedeće: Plusquamperfekt ili Futur I – kako da prepričaš prošlost i planiraš budućnost.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

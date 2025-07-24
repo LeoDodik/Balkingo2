@@ -1,0 +1,144 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli u lekciju Futur II!</h2>
+    <p>
+      Naučit ćeš kako govoriti o radnjama koje će biti završene u budućnosti ili
+      izražavati pretpostavke o prošlosti.
+    </p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>
+        Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}:
+        {{ currentLesson.title }}
+      </h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- UVOD -->
+      <div *ngIf="currentLesson.id === 'futur2-uvod'" class="grammar-table">
+        <h3>Kada koristiti Futur II?</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Upotreba</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Završetak radnje u budućnosti</td>
+            <td>Bis morgen werde ich das Projekt beendet haben.</td>
+          </tr>
+          <tr>
+            <td>Pretpostavka o prošlosti</td>
+            <td>Er wird schon angekommen sein.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FORMA -->
+      <div *ngIf="currentLesson.id === 'futur2-forma'" class="grammar-table">
+        <h3>Kako formirati Futur II?</h3>
+        <p>
+          Formula:
+          <strong>werden (konjugirano) + perfekt particip + haben/sein</strong>
+        </p>
+        <table>
+          <thead>
+          <tr>
+            <th>Osoba</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>ich</td><td>werde gegessen haben</td></tr>
+          <tr><td>du</td><td>wirst gegessen haben</td></tr>
+          <tr><td>er/sie/es</td><td>wird gegessen haben</td></tr>
+          <tr><td>wir</td><td>werden gegessen haben</td></tr>
+          <tr><td>ihr</td><td>werdet gegessen haben</td></tr>
+          <tr><td>sie/Sie</td><td>werden gegessen haben</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- UPOTREBA -->
+      <div *ngIf="currentLesson.id === 'futur2-upotreba'" class="grammar-table">
+        <h3>Primjeri u rečenicama</h3>
+        <ul>
+          <li>Ich werde bis 18 Uhr gearbeitet haben. (Završetak u budućnosti)</li>
+          <li>Er wird schon gefahren sein. (Pretpostavka o prošlosti)</li>
+        </ul>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste lekciju Futur II.</h2>
+      <p>Sljedeće: Konjunktiv II – nauči izražavati želje i hipotetske situacije.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span
+            ><br />
+            <span style="color: lightgreen;"
+            ><strong>Točan odgovor:</strong> {{ wrong.correct }}</span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

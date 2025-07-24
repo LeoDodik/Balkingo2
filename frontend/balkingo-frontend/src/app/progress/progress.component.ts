@@ -48,6 +48,13 @@ export class ProgressComponent implements OnInit {
     { name: 'modalni glagoli', level: 'srednji' },
     { name: 'prijedlozi', level: 'srednji' },
     { name: 'zamjenice', level: 'srednji' },
+    { name: 'perfekt', level: 'napredni' },
+    { name: 'präteritum', level: 'napredni' },
+    { name: 'plusquamperfekt', level: 'napredni' },
+    { name: 'futur 1', level: 'napredni' },
+    { name: 'futur 2', level: 'napredni' },
+
+
 
 
   ];

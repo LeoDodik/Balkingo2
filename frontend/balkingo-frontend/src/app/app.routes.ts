@@ -116,6 +116,26 @@ export const routes: Routes = [
     path: 'zamjenice',
     loadComponent: () => import('./zamjenice/zamjenice.component').then(m => m.ZamjeniceComponent)
   },
+  {
+    path: 'proslost',
+    loadComponent: () => import('./proslost/proslost.component').then(m => m.ProslostComponent)
+  },
+  {
+    path: 'prateritum',
+    loadComponent: () => import('./prateritum/prateritum.component').then(m => m.PrateritumComponent)
+  },
+  {
+    path: 'plusquamperfekt',
+    loadComponent: () => import('./plusquamperfekt/plusquamperfekt.component').then(m => m.PlusquamperfektComponent)
+  },
+  {
+    path: 'futur1',
+    loadComponent: () => import('./futur1/futur1.component').then(m => m.Futur1Component)
+  },
+  {
+    path: 'futur2',
+    loadComponent: () => import('./futur2/futur2.component').then(m => m.Futur2Component)
+  },
 
 
 ];

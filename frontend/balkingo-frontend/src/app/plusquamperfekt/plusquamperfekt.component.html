@@ -1,0 +1,146 @@
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli u lekciju Plusquamperfekt!</h2>
+    <p>
+      Naučit ćeš kako izraziti radnju koja se dogodila prije neke druge prošle
+      radnje.
+    </p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>
+        Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}:
+        {{ currentLesson.title }}
+      </h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- UVOD TABELA -->
+      <div *ngIf="currentLesson.id === 'plusq-uvod'" class="grammar-table">
+        <h3>Kada koristiti Plusquamperfekt?</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Vrijeme</th>
+            <th>Primjena</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Perfekt</td>
+            <td>Prošle radnje relevantne za sadašnjost</td>
+            <td>Ich habe gegessen.</td>
+          </tr>
+          <tr>
+            <td>Präteritum</td>
+            <td>Opis prošlih događaja (priče)</td>
+            <td>Ich aß einen Apfel.</td>
+          </tr>
+          <tr>
+            <td>Plusquamperfekt</td>
+            <td>Radnja prije druge prošle radnje</td>
+            <td>Ich hatte einen Apfel gegessen.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FORMA -->
+      <div *ngIf="currentLesson.id === 'plusq-forma'" class="grammar-table">
+        <h3>Kako formirati Plusquamperfekt?</h3>
+        <p>Formula: <strong>haben/sein u Präteritumu + perfekt particip</strong></p>
+        <table>
+          <thead>
+          <tr>
+            <th>Osoba</th>
+            <th>„haben“</th>
+            <th>„sein“</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>ich</td><td>hatte</td><td>war</td></tr>
+          <tr><td>du</td><td>hattest</td><td>warst</td></tr>
+          <tr><td>er/sie/es</td><td>hatte</td><td>war</td></tr>
+          <tr><td>wir</td><td>hatten</td><td>waren</td></tr>
+          <tr><td>ihr</td><td>hattet</td><td>wart</td></tr>
+          <tr><td>sie/Sie</td><td>hatten</td><td>waren</td></tr>
+          </tbody>
+        </table>
+        <p>Primjer: Ich <strong>hatte gegessen</strong>.</p>
+      </div>
+
+      <!-- PRIMJERI -->
+      <div *ngIf="currentLesson.id === 'plusq-primjeri'" class="grammar-table">
+        <h3>Primjeri u rečenicama</h3>
+        <p>Als ich ankam, <strong>war er schon gegangen</strong>.</p>
+        <p>Bevor ich ihn traf, <strong>hatte ich das Buch gelesen</strong>.</p>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <!-- Fun Fact -->
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        <em>💡 Fun Fact: {{ currentLesson.funFact }}</em>
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETION -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste lekciju Plusquamperfekt.</h2>
+      <p>Sljedeće: Futur I – nauči govoriti o budućnosti.</p>
+
+      <!-- Wrong Answers Summary -->
+      <div *ngIf="wrongAnswersList.length > 0" class="wrong-answers">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+        <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+      </div>
+    </div>
+  </div>
+</div>

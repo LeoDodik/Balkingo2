@@ -1,0 +1,105 @@
+
+<div class="container">
+  <!-- WELCOME SCREEN -->
+  <div *ngIf="showWelcome" class="welcome active">
+    <div class="logo">Balkingo <i class="fas fa-crown"></i></div>
+    <h2>Dobrodošli u napredni nivo!</h2>
+    <p>U ovoj lekciji naučit ćete kako se gradi perfekt u njemačkom jeziku – prošlo vrijeme koje se najčešće koristi u govoru.</p>
+    <button class="start-btn" (click)="startCourse()">Započni lekciju</button>
+  </div>
+
+  <div *ngIf="!showWelcome">
+    <div class="logo">
+      Balkingo <i class="fas fa-crown"></i>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p>Napredak: {{ progress }}%</p>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div *ngIf="showIntro && currentLesson" class="intro active">
+      <h2>Lekcija {{ currentSectionIndex + 1 }}.{{ currentLessonIndex + 1 }}: {{ currentLesson.title }}</h2>
+      <p>{{ currentLesson.description }}</p>
+
+      <!-- TABELA GRADNJE PERFEKTA -->
+      <div class="grammar-table">
+        <h3>Kako se gradi perfekt?</h3>
+        <p><strong>Perfekt = haben/sein + Partizip II</strong></p>
+        <table>
+          <thead>
+          <tr>
+            <th>Osoba</th>
+            <th>haben/sein</th>
+            <th>Partizip II</th>
+            <th>Primjer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>Ich</td><td>habe</td><td>gelernt</td><td>Ich habe Deutsch gelernt.</td></tr>
+          <tr><td>Du</td><td>hast</td><td>gespielt</td><td>Du hast gut gespielt.</td></tr>
+          <tr><td>Er/Sie/Es</td><td>hat</td><td>gegessen</td><td>Er hat Pizza gegessen.</td></tr>
+          <tr><td>Wir</td><td>haben</td><td>gearbeitet</td><td>Wir haben viel gearbeitet.</td></tr>
+          <tr><td>Ihr</td><td>habt</td><td>gemacht</td><td>Ihr habt das gemacht.</td></tr>
+          <tr><td>Sie/sie</td><td>haben</td><td>getrunken</td><td>Sie haben Wasser getrunken.</td></tr>
+          <tr><td>Ich</td><td><strong>bin</strong></td><td>gegangen</td><td>Ich bin nach Hause gegangen.</td></tr>
+          <tr><td>Du</td><td><strong>bist</strong></td><td>gefahren</td><td>Du bist schnell gefahren.</td></tr>
+          <tr><td>Er</td><td><strong>ist</strong></td><td>gekommen</td><td>Er ist spät gekommen.</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 10px;">🟢 Većina glagola koristi <strong>haben</strong>. Glagoli kretanja i promjene stanja koriste <strong>sein</strong>.</p>
+      </div>
+
+      <button class="start-btn" (click)="startQuiz()">Idi na kviz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div *ngIf="showQuiz && currentLesson" class="quiz active">
+      <div class="question">{{ currentLesson.question }}</div>
+
+      <div class="fun-fact" *ngIf="currentLesson.funFact">
+        💡 Fun Fact: {{ currentLesson.funFact }}
+      </div>
+
+      <div
+        class="answer"
+        *ngFor="let ans of currentLesson.answers"
+        (click)="checkAnswer(ans)"
+        [class.disabled]="answered"
+        [class.correct]="answered && ans === currentLesson.correct"
+        [class.incorrect]="answered && ans !== currentLesson.correct && ans === ans"
+      >
+        {{ ans }}
+      </div>
+
+      <div *ngIf="answered" class="result">
+        <p>{{ resultMessage }}</p>
+        <button class="start-btn" (click)="nextLesson()">Dalje</button>
+      </div>
+    </div>
+
+    <!-- COMPLETE -->
+    <div *ngIf="currentSectionIndex >= sections.length" class="complete active">
+      <h2>Čestitamo! Završili ste ovu naprednu lekciju.</h2>
+      <div class="wrong-summary" *ngIf="wrongAnswersList.length > 0">
+        <h3>❌ Pogrešni odgovori:</h3>
+        <ul>
+          <li *ngFor="let wrong of wrongAnswersList">
+            <strong>Pitanje:</strong> {{ wrong.question }}<br />
+            <span style="color: red;"><strong>Tvoj odgovor:</strong> {{ wrong.selected }}</span><br />
+            <span style="color: lightgreen;"><strong>Točan odgovor:</strong> {{ wrong.correct }}</span>
+          </li>
+        </ul>
+      </div>
+      <button class="start-btn" (click)="restart()">Počni ispočetka</button>
+      <button class="start-btn" (click)="goToLection()">Idi na lekcije</button>
+    </div>
+  </div>
+</div>
+
+
+

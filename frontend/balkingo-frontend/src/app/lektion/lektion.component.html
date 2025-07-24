@@ -198,5 +198,47 @@
   </div>
 
 
+  <!-- NAPREDNI LEVEL -->
+  <div *ngIf="userLevel === 'napredni' || userLevel === 'sve'">
+    <div class="toast-card" (click)="goToProslost()">
+      <div class="toast-content">
+        <i class="fas fa-backward-step"></i>
+        <span class="toast-message">PERFEKT</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
+
+    <div class="toast-card" (click)="goToPrateritum()">
+      <div class="toast-content">
+        <i class="fas fa-history"></i>
+        <span class="toast-message">PRÄTERITUM</span>
+      </div>
+      <i class="fas fa-chevron-right toast-arrow"></i>
+    </div>
+</div>
+
+  <div class="toast-card" (click)="goToPlusquamperfekt()">
+    <div class="toast-content">
+      <i class="fas fa-undo-alt"></i>
+      <span class="toast-message" id="plusquamperfekt">PLUSQUAMPERFEKT</span>
+    </div>
+    <i class="fas fa-chevron-right toast-arrow"></i>
+  </div>
+
+  <div class="toast-card" (click)="goToFutur1()">
+    <div class="toast-content">
+      <i class="fas fa-dice-one"></i>
+      <span class="toast-message">FUTUR I</span>
+    </div>
+    <i class="fas fa-chevron-right toast-arrow"></i>
+  </div>
+
+  <div class="toast-card" (click)="goToFutur2()">
+    <div class="toast-content">
+      <i class="fas fa-dice-two"></i>
+      <span class="toast-message">FUTUR II</span>
+    </div>
+    <i class="fas fa-chevron-right toast-arrow"></i>
+  </div>
 </main>
 </div>
