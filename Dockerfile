@@ -1,15 +1,14 @@
-# Use a slim JDK image for running the app
-FROM openjdk:17-jdk-slim
-
-# Set working directory in the container
+# Stage 1: Build
+FROM gradle:8.3-jdk17 AS builder
 WORKDIR /app
+COPY . .
+# Build without running tests
+RUN gradle clean build -x test
 
-# Copy the locally built JAR into the container
-# Make sure you run './gradlew clean build -x test' locally first
-COPY build/libs/backend-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the port your Spring Boot app uses
+# Stage 2: Runtime
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+# Copy the JAR from the builder stage
+COPY --from=builder /app/build/libs/*.jar app.jar
 EXPOSE 8080
-
-# Run the JAR
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
