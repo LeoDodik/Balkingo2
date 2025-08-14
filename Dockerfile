@@ -1,14 +1,27 @@
-# Stage 1: Build
+# -------- Build Stage --------
 FROM gradle:8.3-jdk17 AS builder
 WORKDIR /app
-COPY . .
-# Build without running tests
-RUN gradle clean build -x test
 
-# Stage 2: Runtime
+# Copy only the build files first for caching
+COPY build.gradle settings.gradle ./
+COPY gradle ./gradle
+RUN gradle dependencies --no-daemon || true
+
+# Copy the rest of the source code
+COPY src ./src
+
+# Build the project
+RUN gradle build -x test --no-daemon
+
+# -------- Run Stage --------
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-# Copy the JAR from the builder stage
+
+# Copy the built jar from the builder stage
 COPY --from=builder /app/build/libs/*.jar app.jar
+
+# Expose default Spring Boot port
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Run the application
+ENTRYPOINT ["java","-jar","app.jar"]
