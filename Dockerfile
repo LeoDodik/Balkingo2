@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Build the Spring Boot app (skip tests)
-RUN gradle clean build -x test
+RUN gradlew clean build -x test
 
 # Step 2: Run stage using slim JDK
 FROM openjdk:17-jdk-slim
