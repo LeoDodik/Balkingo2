@@ -1,30 +1,27 @@
-# Stage 1: Build backend
-FROM gradle:8-jdk17 AS backend-build
-WORKDIR /app
-COPY backend/ /app
-RUN gradle build --no-daemon
-
-# Stage 2: Build frontend
-FROM node:20 AS frontend-build
-WORKDIR /app
-COPY frontend/ /app
-RUN npm install
-RUN npm run build  # Adjust if your AngularJS build command is different
-
-# Stage 3: Combine backend + frontend
+# Use a lightweight OpenJDK image
 FROM openjdk:17-jdk-slim
+
+# Install Gradle (if not using wrapper)
+RUN apt-get update && \
+    apt-get install -y wget unzip && \
+    wget https://services.gradle.org/distributions/gradle-8.4-bin.zip -P /tmp && \
+    unzip -d /opt/gradle /tmp/gradle-8.4-bin.zip && \
+    ln -s /opt/gradle/gradle-8.4/bin/gradle /usr/bin/gradle
+
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy backend jar
-COPY --from=backend-build /app/build/libs/*.jar app.jar
+# Copy all project files
+COPY . .
 
-# Copy frontend build to Spring Boot's static root
-# Spring Boot serves files from /app/resources/static by default
-RUN mkdir -p /app/resources/static
-COPY --from=frontend-build /app/dist/ /app/resources/static/
+# Limit Gradle JVM memory to avoid OOM
+ENV GRADLE_OPTS="-Xmx512m -Dorg.gradle.jvmargs=-Xmx512m"
 
-# Expose port
+# Build the project
+RUN ./gradlew clean build --no-daemon
+
+# Expose the port your Spring Boot app runs on
 EXPOSE 8080
 
-# Run the backend
-ENTRYPOINT ["java","-jar","app.jar"]
+# Run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "backend/build/libs/backend.jar"]
