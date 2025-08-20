@@ -1,0 +1,3 @@
+# Ignore everything except the JAR we need
+**/build/
+!backend/build/libs/backend-0.0.1-SNAPSHOT.jar
