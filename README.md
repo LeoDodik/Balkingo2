@@ -95,14 +95,3 @@ In your `balkingo/frontend` directory, run:
 ```bash
 npm install bootstrap
 
-
-### Open angular.json and locate the build > options > styles and scripts arrays. Then add:
-
-"styles": [
-  "node_modules/bootstrap/dist/css/bootstrap.min.css",
-  "src/styles.css"
-],
-"scripts": [
-  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-]
-# Balkingo2
